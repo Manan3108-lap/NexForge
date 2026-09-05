@@ -1,0 +1,2592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2E6E62">
+<title>MindSaathi Pro - Adaptive Cognitive Engagement Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Source+Sans+3:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;600;700&family=Noto+Sans+Assamese:wght@400;600;700&family=Noto+Sans+Gujarati:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --font-default: 'Source Sans 3', sans-serif;
+  --font-hindi: 'Noto Sans Devanagari', sans-serif;
+  --font-bengali: 'Noto Sans Bengali', sans-serif;
+  --font-assamese: 'Noto Sans Assamese', sans-serif;
+  --font-gujarati: 'Noto Sans Gujarati', sans-serif;
+  --primary: #2E6E62; --primary-dark: #1E4B43; --primary-light: #E3F0EA;
+  --accent: #D9A441; --accent-dark: #B4832E; --accent-light: #FBF0DA;
+  --success: #3F8F5F; --success-light: #E4F4E8;
+  --warning: #C98A1F; --warning-light: #FBF0DA;
+  --error: #C24545; --error-light: #FBE7E5;
+  --ink: #233330; --ink-soft: #5B6B66; --ink-faint: #8B978F;
+  --border: #E4E0D5; --surface: #FFFFFF; --paper: #F7F4EE;
+  --shadow: 0 2px 8px rgba(35,51,48,.1);
+  --shadow-md: 0 8px 24px rgba(35,51,48,.15);
+  --shadow-lg: 0 16px 48px rgba(35,51,48,.2);
+}
+body { background: linear-gradient(135deg, var(--paper) 0%, #F9F7F2 100%); color: var(--ink); font-family: var(--font-default); font-size: 18px; line-height: 1.7; overflow: hidden; -webkit-font-smoothing: antialiased; }
+body.lang-hindi { font-family: var(--font-hindi); }
+body.lang-bengali { font-family: var(--font-bengali); }
+body.lang-assamese { font-family: var(--font-assamese); }
+body.lang-gujarati { font-family: var(--font-gujarati); }
+body.large-buttons .btn, body.large-buttons .nav-item { min-height: 64px; font-size: 20px; }
+body.large-buttons .quick-action-btn { min-height: 110px; }
+body.simplify-decorative .hero-illustration, body.simplify-decorative .buddy-btn, body.simplify-decorative .tip-grid { display: none !important; }
+body.reduce-motion *, body.reduce-motion *::before, body.reduce-motion *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+button { font-family: inherit; cursor: pointer; min-height: 44px; }
+.app { display: flex; height: 100vh; }
+.sidebar { width: 270px; background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%); color: #fff; padding: 22px 0; display: flex; flex-direction: column; box-shadow: var(--shadow-lg); overflow-y: auto; flex-shrink: 0; }
+.logo { padding: 0 22px 24px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,.15); margin-bottom: 24px; }
+.logo-icon { font-size: 36px; }
+.logo-text h1 { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 700; }
+.logo-text p { font-size: 11px; color: rgba(255,255,255,.6); margin-top: 3px; }
+.nav-section { padding: 0 14px; margin-bottom: 24px; }
+.nav-section-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.1px; color: rgba(255,255,255,.4); padding: 0 8px 12px; }
+.nav-item { padding: 14px 16px; margin-bottom: 6px; border-radius: 12px; cursor: pointer; transition: all .18s ease; display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 500; color: rgba(255,255,255,.72); border: none; background: transparent; width: 100%; text-align: left; position: relative; }
+.nav-item:hover { background: rgba(255,255,255,.14); color: #fff; }
+.nav-item.active { background: rgba(255,255,255,.25); color: #fff; font-weight: 600; }
+.nav-icon { font-size: 20px; flex-shrink: 0; }
+.badge-notify { position: absolute; right: 10px; background: var(--error); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 10px; }
+.user-profile { margin-top: auto; padding: 16px 22px; border-top: 1px solid rgba(255,255,255,.15); display: flex; align-items: center; gap: 12px; }
+.avatar { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.2); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; border: 2px solid rgba(255,255,255,.4); }
+.content { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+.topbar { background: #fff; border-bottom: 1px solid var(--border); padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 4px rgba(0,0,0,.05); z-index: 10; }
+.page-title { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 700; }
+.topbar-actions { display: flex; gap: 12px; align-items: center; }
+.voice-button { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border: none; color: #fff; font-size: 22px; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-md); transition: all .2s ease; }
+.voice-button:hover { transform: scale(1.08); }
+.voice-button.listening { animation: pulsering 1.3s infinite; }
+@keyframes pulsering { 0%{box-shadow:0 0 0 0 rgba(46,110,98,.6)} 70%{box-shadow:0 0 0 12px rgba(46,110,98,0)} 100%{box-shadow:0 0 0 0 rgba(46,110,98,0)} }
+.btn { padding: 14px 24px; border: none; border-radius: 10px; font-weight: 600; font-size: 16px; transition: all .2s ease; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; }
+.btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 12px rgba(46,110,98,.25); }
+.btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+.btn-primary:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+.btn-accent { background: var(--accent); color: #fff; }
+.btn-accent:hover { background: var(--accent-dark); }
+.btn-ghost { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
+.btn-ghost:hover { background: var(--primary-light); }
+.btn-danger { background: var(--error); color: #fff; }
+.btn-danger:hover { background: #a33; }
+.btn-sm { padding: 7px 15px; font-size: 12.5px; }
+.btn-block { width: 100%; }
+.main-view { flex: 1; overflow-y: auto; padding: 32px; }
+.view { display: none; animation: fadeIn .25s ease; }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+.view.active { display: block; }
+.grid { display: grid; gap: 24px; margin-bottom: 28px; }
+.grid-2 { grid-template-columns: repeat(2,1fr); }
+.grid-3 { grid-template-columns: repeat(3,1fr); }
+.grid-4 { grid-template-columns: repeat(4,1fr); }
+.card { background: #fff; border: 1.5px solid var(--border); border-radius: 18px; padding: 26px; box-shadow: var(--shadow); transition: all .2s ease; }
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
+.card-title { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 700; margin-bottom: 4px; }
+.card-subtitle { font-size: 14px; color: var(--ink-soft); }
+.badge { display: inline-block; padding: 6px 14px; border-radius: 20px; font-size: 12.5px; font-weight: 600; }
+.badge-success { background: var(--success-light); color: var(--success); }
+.badge-primary { background: var(--primary-light); color: var(--primary-dark); }
+.badge-accent { background: var(--accent-light); color: var(--accent-dark); }
+.difficulty-indicator { display: flex; gap: 4px; align-items: center; margin-top: 10px; }
+.difficulty-bar { height: 8px; flex: 1; background: var(--border); border-radius: 4px; overflow: hidden; }
+.difficulty-fill { height: 100%; background: linear-gradient(90deg, var(--success), var(--accent), var(--error)); transition: width .3s ease; }
+.difficulty-label { font-size: 12px; font-weight: 700; color: var(--ink-soft); text-transform: uppercase; min-width: 56px; }
+.stat-card { background: linear-gradient(135deg, var(--primary-light), #D4E8E2); border-radius: 14px; padding: 24px; text-align: center; }
+.stat-value { font-family: 'Fraunces', serif; font-size: 36px; font-weight: 700; color: var(--primary-dark); }
+.stat-label { font-size: 13px; color: var(--primary); font-weight: 600; margin-top: 8px; text-transform: uppercase; letter-spacing: .5px; }
+.stat-change { font-size: 13px; color: var(--success); margin-top: 8px; font-weight: 600; }
+.ai-insight { background: linear-gradient(135deg,#F0F9FF,#E0F7FF); border: 1px solid #B3E5FC; border-left: 5px solid var(--primary); border-radius: 12px; padding: 18px; margin-bottom: 16px; }
+.ai-insight-title { font-weight: 700; color: var(--primary); margin-bottom: 8px; font-size: 15px; }
+.ai-insight-text { font-size: 14.5px; color: var(--ink-soft); line-height: 1.6; }
+
+.language-selector { position: fixed; top: 14px; right: 14px; z-index: 1200; background: #fff; border-radius: 12px; box-shadow: var(--shadow-lg); padding: 5px; display: flex; align-items: center; gap: 3px; max-width: calc(100vw - 20px); }
+.lang-track { display: flex; flex-wrap: nowrap; gap: 3px; overflow-x: auto; scroll-behavior: smooth; max-width: 76vw; scrollbar-width: thin; }
+.lang-track::-webkit-scrollbar { height: 6px; }
+.lang-track::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.lang-arrow { flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--border); background: var(--paper); color: var(--primary-dark); font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s ease; }
+.lang-arrow:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+.lang-track .lang-btn { flex-shrink: 0; }
+.lang-btn { background: var(--paper); border: 2px solid transparent; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 12.5px; font-weight: 600; transition: all .2s ease; color: var(--ink); font-family: inherit; min-height: 34px; }
+.lang-btn:hover { background: var(--border); }
+.lang-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.match-card { background: linear-gradient(135deg, var(--primary-light), #D4E8E2); border-radius: 14px; padding: 18px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+.match-player { display: flex; align-items: center; gap: 12px; }
+.match-avatar { width: 40px; height: 40px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; border: 2px solid var(--primary); font-size: 18px; }
+.match-score { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700; color: var(--primary-dark); }
+.match-status { font-size: 13px; color: var(--ink-soft); }
+.leaderboard-row { display: grid; grid-template-columns: 40px 1fr 100px; align-items: center; padding: 16px; border-bottom: 1px solid var(--border); font-size: 15px; }
+.leaderboard-row:last-child { border-bottom: none; }
+.rank { font-family: 'Fraunces', serif; font-weight: 700; font-size: 17px; text-align: center; }
+.rank.gold { color: #FFB700; } .rank.silver { color: #A9A9A9; } .rank.bronze { color: #CD7F32; }
+.leaderboard-score { text-align: right; font-weight: 700; font-size: 15px; }
+.progress-chart { display: flex; align-items: flex-end; gap: 8px; height: 130px; margin: 20px 0 34px; }
+.progress-bar { flex: 1; background: linear-gradient(180deg, var(--primary), var(--primary-dark)); border-radius: 8px 8px 0 0; position: relative; min-height: 4px; }
+.progress-value { position: absolute; bottom: -26px; left: 50%; transform: translateX(-50%); font-size: 13px; font-weight: 700; }
+.emotion-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; margin: 16px 0; }
+.emotion { background: #fff; border: 2.5px solid var(--border); border-radius: 14px; padding: 14px; text-align: center; font-size: 34px; transition: all .18s ease; min-height: 60px; }
+.emotion:hover { border-color: var(--primary); transform: scale(1.08); }
+.emotion.selected { border-color: var(--primary); background: var(--primary-light); }
+.toggle { width: 48px; height: 28px; background: var(--border); border: none; border-radius: 14px; position: relative; transition: all .2s ease; flex-shrink: 0; }
+.toggle::after { content: ''; position: absolute; width: 22px; height: 22px; background: #fff; border-radius: 50%; top: 3px; left: 3px; transition: all .2s ease; box-shadow: 0 1px 4px rgba(0,0,0,.2); }
+.toggle.on { background: var(--success); }
+.toggle.on::after { left: 23px; }
+.settings-row { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--border); gap: 18px; }
+.settings-row:last-child { border-bottom: none; }
+.settings-row-label { font-weight: 700; font-size: 16px; }
+.settings-row-sub { font-size: 13.5px; color: var(--ink-soft); margin-top: 3px; }
+.notif-item { display: flex; gap: 14px; padding: 18px; border-radius: 14px; margin-bottom: 10px; background: var(--paper); border-left: 4px solid var(--border); transition: all .2s ease; cursor: pointer; }
+.notif-item.unread { background: var(--primary-light); border-left-color: var(--primary); }
+.notif-item:hover { transform: translateX(2px); }
+.notif-icon { font-size: 26px; flex-shrink: 0; }
+.notif-title { font-weight: 700; font-size: 15px; }
+.notif-text { font-size: 14px; color: var(--ink-soft); margin-top: 3px; }
+.notif-time { font-size: 12px; color: var(--ink-faint); margin-top: 5px; }
+.notif-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); flex-shrink: 0; margin-top: 5px; }
+.med-item { display: flex; align-items: center; gap: 16px; padding: 18px; border-radius: 14px; background: var(--paper); margin-bottom: 10px; }
+.med-check { width: 36px; height: 36px; border-radius: 50%; border: 3px solid var(--border); background: #fff; flex-shrink: 0; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all .2s ease; }
+.med-check.taken { background: var(--success); border-color: var(--success); color: #fff; }
+.med-name { font-weight: 700; font-size: 16px; }
+.med-time { font-size: 13.5px; color: var(--ink-soft); }
+.form-group { margin-bottom: 18px; }
+.form-group label { display: block; font-weight: 700; font-size: 15px; margin-bottom: 8px; }
+.form-group input, .form-group select { width: 100%; padding: 14px 16px; border: 2px solid var(--border); border-radius: 10px; font-family: inherit; font-size: 16px; min-height: 48px; }
+.form-group input:focus, .form-group select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-light); }
+.report-row { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 15px; }
+.report-row:last-child { border-bottom: none; }
+.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); backdrop-filter: blur(4px); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+.modal.active { display: flex; }
+.modal-content { background: #fff; border-radius: 22px; padding: 32px; max-width: 680px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,.3); animation: slideUp .3s ease; }
+@keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
+.modal-title { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 700; }
+.modal-close { background: var(--paper); border: none; width: 44px; height: 44px; border-radius: 50%; font-size: 20px; display: flex; align-items: center; justify-content: center; }
+.modal-close:hover { background: var(--border); }
+.game-board { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin: 24px 0; }
+.game-tile { aspect-ratio: 1; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border: none; border-radius: 14px; font-size: 32px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; transition: all .18s ease; min-height: 70px; }
+.game-tile:not(.matched):not(.flipped):hover { transform: scale(.94); }
+.game-tile.flipped { background: #fff; color: var(--ink); border: 2.5px solid var(--primary); }
+.game-tile.matched { background: var(--success-light); color: var(--success); }
+.game-status { text-align: center; font-weight: 700; color: var(--primary); margin: 12px 0; min-height: 28px; font-size: 16px; }
+.sequence-pad { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; margin: 20px 0; max-width: 360px; margin-left: auto; margin-right: auto; }
+.seq-btn { aspect-ratio: 1; border: none; border-radius: 18px; font-size: 17px; font-weight: 700; color: #fff; opacity: .55; transition: all .1s ease; min-height: 90px; }
+.seq-btn.lit { opacity: 1; transform: scale(1.05); box-shadow: 0 0 0 5px rgba(0,0,0,.08); }
+.seq-btn:active:not(:disabled) { transform: scale(.93); }
+.seq-progress { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin: 6px 0 18px; max-width: 360px; margin-left: auto; margin-right: auto; }
+.seq-dot { width: 16px; height: 16px; border-radius: 50%; background: var(--border); border: 2px solid var(--border); transition: all .2s ease; flex-shrink: 0; }
+.seq-dot.filled { background: var(--primary); border-color: var(--primary-dark); transform: scale(1.15); }
+.seq-count { text-align: center; font-size: 14px; color: var(--ink-soft); font-weight: 600; margin-top: -6px; margin-bottom: 12px; }
+.seq-1 { background: #C24545; } .seq-2 { background: #2E6E62; } .seq-3 { background: #D9A441; } .seq-4 { background: #4A6FA5; }
+.pattern-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin: 24px 0; max-width: 360px; margin-left: auto; margin-right: auto; }
+.pattern-cell { aspect-ratio: 1; border: 2.5px solid var(--border); border-radius: 12px; background: var(--paper); font-size: 26px; display: flex; align-items: center; justify-content: center; transition: all .15s ease; min-height: 80px; }
+.pattern-cell.on { background: var(--accent-light); border-color: var(--accent); }
+.toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(140%); background: var(--ink); color: #fff; padding: 16px 28px; border-radius: 14px; font-size: 16px; font-weight: 600; box-shadow: var(--shadow-lg); z-index: 1100; transition: transform .3s ease; max-width: calc(100% - 32px); }
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.success { background: var(--success); }
+.toast.error { background: var(--error); }
+.login-screen { position: fixed; inset: 0; z-index: 2000; background: radial-gradient(circle at 15% 20%, rgba(217,164,65,.25), transparent 45%), radial-gradient(circle at 85% 80%, rgba(255,255,255,.15), transparent 45%), linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 1; transition: opacity .4s ease; }
+.login-screen.hidden { opacity: 0; pointer-events: none; }
+.login-card { background: #fff; border-radius: 28px; padding: 44px 40px; max-width: 480px; width: 100%; box-shadow: 0 30px 80px rgba(0,0,0,.35); text-align: center; animation: loginPop .4s ease; max-height: 90vh; overflow-y: auto; }
+@keyframes loginPop { from { opacity:0; transform: translateY(24px) scale(.97); } to { opacity:1; transform: translateY(0) scale(1); } }
+.login-logo { font-size: 60px; display: inline-block; animation: loginFloat 3s ease-in-out infinite; }
+@keyframes loginFloat { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-6px) rotate(-4deg);} }
+.login-card h1 { font-family: 'Fraunces', serif; font-size: 30px; font-weight: 700; color: var(--primary-dark); margin-top: 6px; }
+.login-card > p.login-tagline { color: var(--ink-soft); font-size: 15px; margin-bottom: 28px; }
+.profile-picker { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.profile-card { background: var(--paper); border: 3px solid var(--border); border-radius: 20px; padding: 24px 14px; cursor: pointer; transition: all .2s ease; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.profile-card:hover { border-color: var(--primary); background: var(--primary-light); transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.profile-avatar-lg { width: 76px; height: 76px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-light), #D4E8E2); display: flex; align-items: center; justify-content: center; font-size: 38px; border: 3px solid #fff; }
+.profile-name { font-weight: 700; font-size: 15px; color: var(--ink); }
+.profile-role { font-size: 12px; color: var(--ink-soft); text-transform: uppercase; }
+.login-back { background: none; border: none; color: var(--primary); font-weight: 600; font-size: 15px; cursor: pointer; margin-bottom: 8px; align-self: flex-start; min-height: 44px; }
+.login-pin-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-light), #D4E8E2); display: flex; align-items: center; justify-content: center; font-size: 42px; margin: 0 auto 10px; border: 3px solid #fff; }
+.login-card h3 { font-family: 'Fraunces', serif; font-size: 20px; margin-bottom: 6px; }
+.pin-hint { color: var(--ink-soft); font-size: 14px; margin-bottom: 18px; }
+.pin-dots { display: flex; justify-content: center; gap: 14px; margin-bottom: 22px; }
+.pin-dot { width: 18px; height: 18px; border-radius: 50%; border: 3px solid var(--border); transition: all .15s ease; }
+.pin-dot.filled { background: var(--primary); border-color: var(--primary); transform: scale(1.15); }
+.pin-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+.pin-keypad button { aspect-ratio: 1; border: none; border-radius: 16px; background: var(--paper); font-size: 22px; font-weight: 700; color: var(--ink); cursor: pointer; transition: all .12s ease; min-height: 60px; }
+.pin-keypad button:hover { background: var(--primary-light); color: var(--primary-dark); }
+.pin-keypad button:active { transform: scale(.92); }
+.pin-keypad button.pin-action { font-size: 14px; background: transparent; color: var(--ink-soft); }
+.login-voice-btn { background: none; border: 2px solid var(--border); color: var(--primary); font-weight: 600; font-size: 15px; padding: 14px 22px; border-radius: 999px; cursor: pointer; transition: all .2s ease; min-height: 48px; }
+.login-voice-btn:hover { border-color: var(--primary); background: var(--primary-light); }
+.signup-link { background: none; border: none; color: var(--primary); font-weight: 700; cursor: pointer; text-decoration: underline; font-size: 14px; padding: 0; min-height: 44px; }
+.role-pick-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.role-pick-card { background: var(--paper); border: 2.5px solid var(--border); border-radius: 16px; padding: 14px 10px; cursor: pointer; transition: all .18s ease; text-align: center; min-height: 60px; }
+.role-pick-card:hover { border-color: var(--primary); }
+.role-pick-card.selected { border-color: var(--primary); background: var(--primary-light); }
+.avatar-pick-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.avatar-pick-btn { width: 48px; height: 48px; border-radius: 50%; border: 2.5px solid var(--border); background: #fff; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.avatar-pick-btn:hover { border-color: var(--primary); }
+.avatar-pick-btn.selected { border-color: var(--primary); background: var(--primary-light); transform: scale(1.1); }
+.buddy-btn { position: fixed; bottom: 28px; right: 28px; width: 68px; height: 68px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); border: none; font-size: 32px; cursor: pointer; box-shadow: 0 10px 28px rgba(217,164,65,.4); z-index: 500; animation: buddyBob 2.6s ease-in-out infinite; }
+.buddy-btn:hover { transform: scale(1.12); }
+@keyframes buddyBob { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+.buddy-bubble { position: fixed; bottom: 108px; right: 28px; max-width: 280px; background: #fff; border-radius: 18px 18px 4px 18px; padding: 18px 20px; box-shadow: var(--shadow-lg); font-size: 15px; color: var(--ink); z-index: 501; display: none; animation: loginPop .25s ease; }
+.buddy-bubble.show { display: block; }
+.reaction-row { display: flex; gap: 10px; margin-top: 12px; }
+.reaction-btn { background: #fff; border: 2px solid var(--border); border-radius: 999px; padding: 7px 14px; font-size: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; }
+.reaction-btn:hover { border-color: var(--primary); background: var(--primary-light); }
+.reaction-btn.picked { background: var(--primary-light); border-color: var(--primary); font-weight: 700; }
+.reaction-btn .count { font-size: 13px; color: var(--ink-soft); }
+.ring-wrap { position: relative; width: 92px; height: 92px; margin: 0 auto 12px; }
+.ring-svg { transform: rotate(-90deg); }
+.ring-bg { fill: none; stroke: var(--border); stroke-width: 8; }
+.ring-fill { fill: none; stroke: var(--accent); stroke-width: 8; stroke-linecap: round; }
+.ring-emoji { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 34px; }
+.hero-banner { background: linear-gradient(120deg, var(--primary) 0%, var(--primary-dark) 100%); border-radius: 22px; padding: 30px 32px; margin-bottom: 28px; color: #fff; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.hero-banner::after { content: ''; position: absolute; right: -30px; top: -30px; width: 180px; height: 180px; border-radius: 50%; background: rgba(255,255,255,.08); }
+.hero-illustration { font-size: 64px; animation: heroFloat 3.5s ease-in-out infinite; flex-shrink: 0; }
+@keyframes heroFloat { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-6px) rotate(3deg);} }
+.hero-text h2 { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.hero-text p { color: rgba(255,255,255,.85); font-size: 15px; margin: 0; }
+.quick-actions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+.quick-action-btn { min-height: 100px; border-radius: 18px; border: 2.5px solid var(--border); background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; font-weight: 700; color: var(--ink); cursor: pointer; transition: all .2s ease; padding: 18px 10px; text-align: center; box-shadow: var(--shadow); }
+.quick-action-btn:hover { border-color: var(--primary); background: var(--primary-light); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.quick-action-btn .qa-icon { font-size: 36px; }
+.quick-action-btn .qa-label { font-size: 14px; line-height: 1.3; }
+.reminder-item { display: flex; align-items: center; gap: 14px; padding: 18px; border-radius: 14px; background: var(--paper); margin-bottom: 10px; flex-wrap: wrap; }
+.reminder-icon { font-size: 28px; flex-shrink: 0; }
+.reminder-info { flex: 1; min-width: 140px; }
+.reminder-name { font-weight: 700; font-size: 16px; }
+.reminder-meta { font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
+.reminder-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.reminder-actions button { min-height: 40px; font-size: 13px; padding: 8px 14px; border-radius: 10px; border: 2px solid var(--border); background: #fff; font-weight: 600; cursor: pointer; }
+.reminder-actions button:hover { border-color: var(--primary); background: var(--primary-light); }
+.reminder-actions button.done-btn { background: var(--success-light); border-color: var(--success); color: var(--success); }
+.reminder-actions button.skip-btn { background: var(--error-light); border-color: var(--error); color: var(--error); }
+.timeline { position: relative; padding-left: 36px; }
+.timeline::before { content: ''; position: absolute; left: 14px; top: 0; bottom: 0; width: 3px; background: var(--border); border-radius: 3px; }
+.timeline-item { position: relative; margin-bottom: 20px; padding: 18px; border-radius: 14px; background: var(--paper); border: 2px solid var(--border); cursor: pointer; transition: all .2s ease; }
+.timeline-item:hover { border-color: var(--primary); }
+.timeline-item.completed { background: var(--success-light); border-color: var(--success); }
+.timeline-item.current { border-color: var(--accent); background: var(--accent-light); }
+.timeline-dot { position: absolute; left: -30px; top: 22px; width: 20px; height: 20px; border-radius: 50%; background: var(--border); border: 3px solid #fff; }
+.timeline-item.completed .timeline-dot { background: var(--success); }
+.timeline-item.current .timeline-dot { background: var(--accent); animation: pulsering 1.3s infinite; }
+.timeline-time { font-size: 12px; font-weight: 700; color: var(--ink-faint); text-transform: uppercase; }
+.timeline-label { font-size: 16px; font-weight: 700; margin-top: 4px; }
+.timeline-emoji { font-size: 22px; margin-right: 8px; }
+.encourage-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.encourage-card { padding: 18px; border-radius: 14px; background: linear-gradient(135deg, var(--primary-light), #D4E8E2); border: 2px solid var(--border); cursor: pointer; text-align: center; font-weight: 700; font-size: 15px; transition: all .2s ease; }
+.encourage-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+.encourage-card .enc-icon { font-size: 28px; margin-bottom: 6px; }
+.empty-state { text-align: center; padding: 40px 20px; color: var(--ink-soft); }
+.empty-state .empty-icon { font-size: 56px; margin-bottom: 12px; opacity: 0.6; }
+.empty-state .empty-text { font-size: 17px; font-weight: 600; }
+.empty-state .empty-sub { font-size: 14px; margin-top: 6px; }
+.demo-badge { position: fixed; top: 14px; left: 14px; z-index: 1300; background: var(--accent); color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 700; box-shadow: var(--shadow-md); display: none; }
+.onboarding-overlay { position: fixed; inset: 0; z-index: 3000; background: rgba(0,0,0,.6); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; padding: 20px; }
+.onboarding-overlay.active { display: flex; }
+.onboarding-card { background: #fff; border-radius: 28px; padding: 40px 36px; max-width: 480px; width: 100%; box-shadow: 0 30px 80px rgba(0,0,0,.35); text-align: center; animation: loginPop .4s ease; }
+.onboarding-progress { display: flex; justify-content: center; gap: 10px; margin-bottom: 28px; }
+.onboarding-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--border); transition: all .2s ease; }
+.onboarding-dot.active { background: var(--primary); transform: scale(1.2); }
+.onboarding-dot.done { background: var(--success); }
+.onboarding-step { display: none; }
+.onboarding-step.active { display: block; }
+.onboarding-step h2 { font-family: 'Fraunces', serif; font-size: 24px; margin-bottom: 8px; }
+.onboarding-step p { color: var(--ink-soft); font-size: 15px; margin-bottom: 24px; }
+.onboarding-options { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px; }
+.onboarding-option { padding: 20px; border-radius: 16px; border: 2.5px solid var(--border); background: var(--paper); cursor: pointer; text-align: center; }
+.onboarding-option:hover { border-color: var(--primary); }
+.onboarding-option.selected { border-color: var(--primary); background: var(--primary-light); }
+.onboarding-option .opt-icon { font-size: 36px; margin-bottom: 6px; }
+.onboarding-option .opt-label { font-weight: 700; font-size: 15px; }
+.text-size-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+.text-size-opt { padding: 18px; border-radius: 14px; border: 2.5px solid var(--border); background: var(--paper); cursor: pointer; text-align: center; }
+.text-size-opt:hover { border-color: var(--primary); }
+.text-size-opt.selected { border-color: var(--primary); background: var(--primary-light); }
+.accessibility-panel { position: fixed; top: 0; right: -380px; width: 360px; height: 100vh; background: #fff; box-shadow: -4px 0 24px rgba(0,0,0,.15); z-index: 1400; padding: 28px; overflow-y: auto; transition: right .3s ease; }
+.accessibility-panel.open { right: 0; }
+.accessibility-panel h3 { font-family: 'Fraunces', serif; font-size: 22px; margin-bottom: 20px; }
+.accessibility-close { position: absolute; top: 16px; right: 16px; background: var(--paper); border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 18px; cursor: pointer; }
+.accessibility-row { margin-bottom: 20px; }
+.accessibility-row label { display: block; font-weight: 700; font-size: 15px; margin-bottom: 8px; }
+.accessibility-row .abtns { display: flex; gap: 8px; }
+.accessibility-row .abtns button { flex: 1; padding: 12px; border-radius: 10px; border: 2px solid var(--border); background: var(--paper); font-weight: 600; font-size: 14px; cursor: pointer; min-height: 44px; }
+.accessibility-row .abtns button.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.accessibility-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.3); z-index: 1399; display: none; }
+.accessibility-overlay.open { display: block; }
+.landing-page { position: fixed; inset: 0; z-index: 5000; background: #fff; overflow-y: auto; display: none; }
+.landing-page.active { display: block; }
+.landing-hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 24px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 60%, #0f3030 100%); color: #fff; position: relative; overflow: hidden; }
+.landing-hero::before { content: ''; position: absolute; width: 400px; height: 400px; border-radius: 50%; background: rgba(217,164,65,.15); top: -100px; right: -100px; }
+.landing-hero::after { content: ''; position: absolute; width: 300px; height: 300px; border-radius: 50%; background: rgba(255,255,255,.06); bottom: -80px; left: -80px; }
+.landing-logo { font-size: 72px; margin-bottom: 16px; animation: loginFloat 3s ease-in-out infinite; position: relative; z-index: 1; }
+.landing-hero h1 { font-family: 'Fraunces', serif; font-size: 48px; font-weight: 700; margin-bottom: 16px; position: relative; z-index: 1; }
+.landing-hero .tagline { font-size: 22px; color: rgba(255,255,255,.9); max-width: 600px; line-height: 1.6; margin-bottom: 32px; position: relative; z-index: 1; }
+.landing-hero .subtext { font-size: 16px; color: rgba(255,255,255,.7); max-width: 520px; line-height: 1.6; margin-bottom: 40px; position: relative; z-index: 1; }
+.landing-ctas { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; }
+.landing-ctas .btn { font-size: 18px; padding: 18px 32px; border-radius: 16px; min-height: 56px; }
+.landing-section { padding: 80px 24px; max-width: 1000px; margin: 0 auto; }
+.landing-section h2 { font-family: 'Fraunces', serif; font-size: 32px; text-align: center; margin-bottom: 12px; }
+.landing-section .section-sub { text-align: center; color: var(--ink-soft); font-size: 17px; margin-bottom: 48px; max-width: 600px; margin-left: auto; margin-right: auto; }
+.landing-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.landing-feature { text-align: center; padding: 28px 20px; border-radius: 18px; background: var(--paper); border: 1.5px solid var(--border); }
+.landing-feature .lf-icon { font-size: 48px; margin-bottom: 12px; }
+.landing-feature h3 { font-family: 'Fraunces', serif; font-size: 19px; margin-bottom: 8px; }
+.landing-feature p { font-size: 15px; color: var(--ink-soft); }
+.landing-games-preview { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.landing-game-card { text-align: center; padding: 24px; border-radius: 18px; background: var(--primary-light); border: 1.5px solid var(--primary); }
+.landing-game-card .lg-icon { font-size: 48px; margin-bottom: 10px; }
+.landing-game-card h4 { font-size: 17px; font-weight: 700; }
+.landing-game-card p { font-size: 14px; color: var(--ink-soft); margin-top: 4px; }
+.landing-privacy-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.landing-privacy-item { padding: 24px; border-radius: 18px; background: var(--success-light); border: 1.5px solid var(--success); }
+.landing-privacy-item h4 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+.landing-privacy-item p { font-size: 14px; color: var(--ink-soft); }
+.landing-cta-bottom { text-align: center; padding: 80px 24px; background: var(--paper); }
+.adaptive-msg { font-size: 13px; color: var(--ink-soft); font-style: italic; margin-top: 8px; margin-bottom: 16px; padding: 10px 14px; background: var(--primary-light); border-radius: 10px; }
+.game-option-btn { padding: 18px; border-radius: 14px; border: 2.5px solid var(--border); background: var(--paper); font-size: 17px; font-weight: 700; cursor: pointer; min-height: 60px; width: 100%; }
+.game-option-btn:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-light); }
+.game-option-btn.correct { background: var(--success-light); border-color: var(--success); color: var(--success); }
+.game-option-btn.wrong { background: var(--error-light); border-color: var(--error); color: var(--error); }
+.game-option-btn:disabled { cursor: default; }
+.obj-recall-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
+.obj-cell { aspect-ratio: 1; border-radius: 14px; background: var(--primary-light); font-size: 42px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary); }
+.obj-cell.hidden { background: var(--border); border-color: var(--border); color: transparent; }
+.attention-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0; max-width: 400px; margin-left: auto; margin-right: auto; }
+.attention-cell { aspect-ratio: 1; border-radius: 12px; background: var(--paper); border: 2.5px solid var(--border); font-size: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.attention-cell:hover:not(:disabled) { border-color: var(--primary); }
+.attention-cell.correct { background: var(--success-light); border-color: var(--success); }
+.attention-cell.wrong { background: var(--error-light); border-color: var(--error); }
+.elder-today-status { padding: 16px; border-radius: 14px; background: var(--paper); margin-bottom: 12px; }
+.elder-today-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 15px; font-weight: 600; }
+.elder-today-item .status-icon { font-size: 18px; width: 24px; text-align: center; }
+.bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 120px; margin: 16px 0; padding-bottom: 24px; }
+.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; }
+.bar-fill { width: 100%; border-radius: 6px 6px 0 0; background: linear-gradient(180deg, var(--primary), var(--primary-dark)); min-height: 4px; }
+.bar-label { font-size: 11px; color: var(--ink-soft); margin-top: 6px; font-weight: 600; }
+.feel-board { max-width: 480px; margin: 0 auto; text-align: center; }
+.feel-prompt { font-size: 84px; margin-bottom: 10px; }
+.feel-options { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; }
+.feel-option { padding: 22px 14px; border-radius: 16px; font-size: 20px; font-weight: 700; cursor: pointer; border: 3px solid var(--border); background: var(--paper); min-height: 64px; }
+.feel-option:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-light); }
+.feel-option.correct { background: var(--success-light); border-color: var(--success); color: var(--success); }
+.feel-option.wrong { background: var(--error-light); border-color: var(--error); color: var(--error); }
+.feel-score { font-size: 16px; color: var(--ink-soft); margin-top: 16px; font-weight: 600; }
+.tip-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.tip-card { perspective: 900px; height: 120px; cursor: pointer; }
+.tip-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .5s ease; }
+.tip-card.flipped .tip-inner { transform: rotateY(180deg); }
+.tip-face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 40px; border: 2.5px solid var(--border); box-shadow: var(--shadow); }
+.tip-front { background: linear-gradient(135deg, var(--accent-light), #FFF4DD); }
+.tip-back { background: var(--primary); color: #fff; transform: rotateY(180deg); font-size: 15px; font-weight: 600; padding: 14px; text-align: center; line-height: 1.4; }
+.tip-tap { font-size: 11px; color: var(--accent-dark); font-weight: 700; text-transform: uppercase; margin-top: 2px; }
+@keyframes popCheck { 0%{transform:scale(.6)} 70%{transform:scale(1.2)} 100%{transform:scale(1)} }
+.confetti-piece { position: fixed; top: -20px; width: 12px; height: 12px; z-index: 1200; pointer-events: none; animation: confettiFall linear forwards; }
+@keyframes confettiFall { to { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
+.emergency-btn { background: linear-gradient(135deg, var(--error), #a33); color: #fff; font-weight: 700; font-size: 15px; padding: 14px 18px; border-radius: 12px; border: none; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; margin-top: 4px; }
+.emergency-btn:hover { background: linear-gradient(135deg, #a33, #822); }
+body.high-contrast { --ink: #000; --ink-soft: #333; --ink-faint: #555; --border: #999; }
+body.high-contrast .card { border-width: 2.5px; }
+.privacy-pin-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); backdrop-filter: blur(4px); z-index: 1200; align-items: center; justify-content: center; padding: 20px; }
+.privacy-pin-modal.active { display: flex; }
+.privacy-pin-card { background: #fff; border-radius: 22px; padding: 36px 32px; max-width: 420px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,.3); text-align: center; animation: slideUp .3s ease; }
+.privacy-pin-icon { font-size: 48px; margin-bottom: 10px; }
+.privacy-pin-dots { display: flex; justify-content: center; gap: 14px; margin: 20px 0; }
+.privacy-pin-dot { width: 18px; height: 18px; border-radius: 50%; border: 3px solid var(--border); }
+.privacy-pin-dot.filled { background: var(--primary); border-color: var(--primary); transform: scale(1.15); }
+.privacy-pin-keypad { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 16px; }
+.privacy-pin-keypad button { aspect-ratio: 1; border: none; border-radius: 16px; background: var(--paper); font-size: 22px; font-weight: 700; color: var(--ink); cursor: pointer; min-height: 60px; }
+.privacy-pin-keypad button:hover { background: var(--primary-light); color: var(--primary-dark); }
+.privacy-pin-keypad button.pin-action { font-size: 14px; background: transparent; color: var(--ink-soft); }
+.privacy-pin-error { color: var(--error); font-size: 14px; min-height: 22px; margin-top: 8px; font-weight: 600; }
+.privacy-pin-cancel { background: none; border: none; color: var(--ink-soft); font-size: 14px; cursor: pointer; margin-top: 6px; text-decoration: underline; min-height: 44px; }
+.privacy-item { background: var(--paper); border: 2px solid var(--border); border-radius: 16px; padding: 22px; }
+.privacy-item h4 { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.privacy-item p { font-size: 14.5px; color: var(--ink-soft); margin: 0; line-height: 1.6; }
+.privacy-consent-row { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--border); gap: 16px; }
+.privacy-consent-row:last-child { border-bottom: none; }
+.privacy-consent-label { font-weight: 700; font-size: 15px; }
+.breathe-stage { display: flex; flex-direction: column; align-items: center; padding: 16px 0; }
+.breathe-ring { width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, var(--primary-light) 0%, #D4E8E2 100%); border: 6px solid var(--primary); display: flex; align-items: center; justify-content: center; transition: transform 4s ease-in-out; }
+.breathe-ring.guide-in { transform: scale(1.35); }
+.breathe-ring.guide-out { transform: scale(1); }
+.breathe-ring.highlight { animation: breatheGlow 1.2s ease-in-out infinite; }
+@keyframes breatheGlow { 0%,100%{box-shadow:0 0 0 0 rgba(46,110,98,.3)} 50%{box-shadow:0 0 0 24px rgba(46,110,98,0)} }
+.breathe-guide { font-size: 56px; }
+.breathe-label { font-size: 20px; font-weight: 700; color: var(--primary-dark); margin-top: 22px; min-height: 30px; }
+.breathe-count { font-size: 44px; font-weight: 800; font-family: 'Fraunces', serif; color: var(--accent-dark); margin-top: 6px; min-height: 54px; }
+.task-count { font-size: 30px; font-weight: 800; font-family: 'Fraunces', serif; color: var(--primary-dark); }
+.task-count span { font-size: 15px; color: var(--ink-soft); font-family: 'Source Sans 3', sans-serif; }
+.task-item { display: flex; align-items: center; gap: 16px; padding: 20px; border-radius: 16px; background: var(--paper); margin-bottom: 12px; cursor: pointer; border: 2.5px solid var(--border); }
+.task-item:hover { border-color: var(--primary); transform: translateY(-2px); }
+.task-item.done { background: var(--success-light); border-color: var(--success); }
+.task-check { width: 40px; height: 40px; border-radius: 50%; border: 3px solid var(--border); background: #fff; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.task-item.done .task-check { background: var(--success); border-color: var(--success); color: #fff; animation: popCheck .3s ease; }
+.task-name { font-size: 18px; font-weight: 700; }
+.task-item.done .task-name { color: var(--success); text-decoration: line-through; }
+.task-pts { margin-left: auto; font-size: 15px; font-weight: 700; color: var(--accent-dark); }
+.task-reward { text-align: center; padding: 24px; background: var(--accent-light); border-radius: 16px; }
+.voice-prompt-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); backdrop-filter: blur(6px); z-index: 1500; display: none; align-items: center; justify-content: center; padding: 24px; }
+.voice-prompt-overlay.active { display: flex; }
+.voice-prompt-card { background: #fff; border-radius: 24px; padding: 40px 36px; max-width: 440px; width: 100%; text-align: center; box-shadow: 0 24px 64px rgba(0,0,0,.35); animation: slideUp .3s ease; }
+.voice-prompt-card .mic-icon { font-size: 64px; margin-bottom: 12px; animation: pulseMic 1.5s infinite; }
+@keyframes pulseMic { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.1);opacity:.8} }
+.voice-prompt-card h3 { font-family: 'Fraunces', serif; font-size: 22px; margin-bottom: 8px; }
+.voice-prompt-card p { color: var(--ink-soft); font-size: 15px; margin-bottom: 20px; }
+.voice-prompt-listen { font-size: 16px; color: var(--primary); font-weight: 600; min-height: 20px; }
+@media (max-width: 1200px) { .grid-4, .grid-3 { grid-template-columns: repeat(2,1fr); } .landing-features, .landing-games-preview { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 768px) {
+  .app { flex-direction: column; } .sidebar { display: none; }
+  .sidebar.mobile-open { display: flex; position: fixed; inset: 0; z-index: 2500; width: 280px; height: 100vh; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .game-board { grid-template-columns: repeat(4,1fr); gap: 8px; }
+  .game-tile { font-size: 24px; min-height: 56px; border-radius: 12px; }
+  .profile-picker { grid-template-columns: 1fr; }
+  .login-card { padding: 32px 26px; }
+  .hero-banner { flex-direction: column; text-align: center; }
+  .hero-illustration { font-size: 48px; }
+  .modal-content { padding: 22px 16px; max-height: 92vh; }
+  .modal-title { font-size: 20px; }
+  .seq-btn { min-height: 72px; }
+  .pattern-cell { min-height: 64px; }
+  .sequence-pad, .pattern-grid, .seq-progress { max-width: 300px; }
+  .btn { min-height: 52px; font-size: 17px; }
+  .nav-item { padding: 16px 18px; font-size: 16px; }
+  .language-selector { top: 6px; right: 6px; padding: 3px; }
+  .lang-arrow { width: 32px; height: 32px; font-size: 14px; }
+  .lang-track { max-width: 64vw; }
+  .lang-btn { font-size: 10px; padding: 5px 7px; min-height: 28px; }
+  .quick-actions-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .quick-action-btn { min-height: 80px; }
+  .landing-features, .landing-games-preview { grid-template-columns: 1fr; }
+  .landing-privacy-grid { grid-template-columns: 1fr; }
+  .landing-hero h1 { font-size: 32px; }
+  .encourage-grid { grid-template-columns: 1fr; }
+  .timeline { padding-left: 30px; }
+  .main-view { padding: 20px; padding-bottom: 80px; }
+  .tip-grid { grid-template-columns: repeat(2, 1fr); }
+  .tip-card { height: 104px; }
+  .breathe-ring { width: 170px; height: 170px; }
+  .breathe-guide { font-size: 46px; }
+  .feel-prompt { font-size: 64px; }
+  .feel-option { font-size: 18px; min-height: 58px; padding: 18px 12px; }
+  .task-item { padding: 16px; gap: 12px; }
+  .obj-recall-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .obj-cell { font-size: 32px; }
+  .attention-grid { grid-template-columns: repeat(3, 1fr); }
+  .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1100; background: #fff; border-top: 2px solid var(--border); display: flex; box-shadow: 0 -4px 16px rgba(0,0,0,.1); }
+  .bottom-nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 0 8px; font-size: 11px; font-weight: 600; color: var(--ink-soft); background: none; border: none; cursor: pointer; gap: 4px; min-height: 56px; }
+  .bottom-nav-item.active { color: var(--primary); }
+  .bottom-nav-item .bn-icon { font-size: 22px; }
+  .topbar .hamburger { display: block; background: none; border: none; font-size: 24px; cursor: pointer; min-height: 44px; min-width: 44px; }
+  .topbar .desktop-only { display: none; }
+  .accessibility-panel { width: 100%; right: -100%; }
+}
+@media (min-width: 769px) { .bottom-nav { display: none !important; } .topbar .hamburger { display: none; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+
+/* Keep the care experience calm by limiting decorative emoji in navigation and cards. */
+.nav-icon,
+.bn-icon,
+.quick-action-btn .qa-icon,
+.hero-illustration {
+  display: none !important;
+}
+</style>
+</head>
+<body>
+
+<!-- Language Selector -->
+<div class="language-selector" id="langSelector">
+  <button class="lang-arrow" onclick="scrollLang(-1)" aria-label="Scroll left">&#8249;</button>
+  <div class="lang-track" id="langTrack">
+    <button class="lang-btn active" onclick="switchLang('english')">English</button>
+    <button class="lang-btn" onclick="switchLang('hindi')">हिंदी</button>
+    <button class="lang-btn" onclick="switchLang('bengali')">বাংলা</button>
+    <button class="lang-btn" onclick="switchLang('assamese')">অসমীয়া</button>
+    <button class="lang-btn" onclick="switchLang('manipuri')">মৈতৈলোন্</button>
+    <button class="lang-btn" onclick="switchLang('khasi')">Khasi</button>
+    <button class="lang-btn" onclick="switchLang('mizo')">Mizo</button>
+    <button class="lang-btn" onclick="switchLang('gujarati')">ગુજરાતી</button>
+  </div>
+  <button class="lang-arrow" onclick="scrollLang(1)" aria-label="Scroll right">&#8250;</button>
+</div>
+
+<!-- Demo Badge -->
+<div class="demo-badge" id="demoBadge" data-i18n="demoBadge">DEMO MODE</div>
+
+<!-- Landing Page -->
+<div class="landing-page active" id="landingPage">
+  <div class="landing-hero">
+    <div class="landing-logo">&#x1F9D9;</div>
+    <h1>MindSaathi Pro</h1>
+    <p class="tagline" data-i18n="landingTagline">Empowering active minds through gentle, adaptive cognitive play</p>
+    <p class="subtext" data-i18n="landingSub">A culturally sensitive, multi-language cognitive engagement platform designed for seniors. Featuring personalized brain games, wellness tracking, and family connections.</p>
+    <div class="landing-ctas">
+      <button class="btn btn-primary" onclick="enterApp()" data-i18n="landingGetStarted">Get Started</button>
+      <button class="btn btn-ghost" style="background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.4)" onclick="enterApp()" data-i18n="landingTryDemo">Try Demo</button>
+    </div>
+  </div>
+  <div class="landing-section">
+    <h2 data-i18n="landingFeaturesTitle">Thoughtfully Designed Features</h2>
+    <p class="section-sub" data-i18n="landingFeaturesSub">Every detail crafted to feel familiar, safe, and engaging</p>
+    <div class="landing-features">
+      <div class="landing-feature"><div class="lf-icon">&#x1F3AF;</div><h3 data-i18n="landingFeat1Title">Adaptive Brain Games</h3><p data-i18n="landingFeat1Desc">6 personalized games that adjust difficulty to your comfort level</p></div>
+      <div class="landing-feature"><div class="lf-icon">&#x1F30D;</div><h3 data-i18n="landingFeat2Title">8 Indian Languages</h3><p data-i18n="landingFeat2Desc">Full support for Hindi, Bengali, Assamese, Manipuri, Khasi, Mizo, Gujarati & English</p></div>
+      <div class="landing-feature"><div class="lf-icon">&#x1F9D1;&#x200D;&#x1F469;&#x200D;&#x1F467;</div><h3 data-i18n="landingFeat3Title">Family Connected</h3><p data-i18n="landingFeat3Desc">Share progress and encouragement with family members and caregivers</p></div>
+      <div class="landing-feature"><div class="lf-icon">&#x1F3E0;</div><h3 data-i18n="landingFeat4Title">Daily Wellness</h3><p data-i18n="landingFeat4Desc">Smart routine timeline, medication reminders, and mood tracking</p></div>
+      <div class="landing-feature"><div class="lf-icon">&#x1F512;</div><h3 data-i18n="landingFeat5Title">Privacy First</h3><p data-i18n="landingFeat5Desc">PIN-protected access with full control over your personal data</p></div>
+      <div class="landing-feature"><div class="lf-icon">&#x1F507;</div><h3 data-i18n="landingFeat6Title">Voice Control</h3><p data-i18n="landingFeat6Desc">Navigate hands-free with built-in voice commands in multiple languages</p></div>
+    </div>
+  </div>
+  <div class="landing-section" style="background:var(--paper)">
+    <h2 data-i18n="landingGamesTitle">Engaging Cognitive Games</h2>
+    <p class="section-sub" data-i18n="landingGamesSub">Fun activities backed by cognitive science</p>
+    <div class="landing-games-preview">
+      <div class="landing-game-card"><div class="lg-icon">&#x1F0CF;</div><h4 data-i18n="landingGame1">Memory Match</h4><p data-i18n="landingGame1Desc">Find matching pairs to boost recall</p></div>
+      <div class="landing-game-card"><div class="lg-icon">&#x1F3B6;</div><h4 data-i18n="landingGame2">Sequence Song</h4><p data-i18n="landingGame2Desc">Recreate musical patterns</p></div>
+      <div class="landing-game-card"><div class="lg-icon">&#x1F4A1;</div><h4 data-i18n="landingGame3">Pattern Flash</h4><p data-i18n="landingGame3Desc">Remember and recreate patterns</p></div>
+      <div class="landing-game-card"><div class="lg-icon">&#x1F464;</div><h4 data-i18n="landingGame4">Name Recall</h4><p data-i18n="landingGame4Desc">Match names to faces</p></div>
+      <div class="landing-game-card"><div class="lg-icon">&#x1F4E6;</div><h4 data-i18n="landingGame5">Object Recall</h4><p data-i18n="landingGame5Desc">Remember everyday items</p></div>
+      <div class="landing-game-card"><div class="lg-icon">&#x1F441;</div><h4 data-i18n="landingGame6">Attention Focus</h4><p data-i18n="landingGame6Desc">Spot the unique item</p></div>
+    </div>
+  </div>
+  <div class="landing-section">
+    <h2 data-i18n="landingPrivacyTitle">Your Privacy, Your Control</h2>
+    <p class="section-sub" data-i18n="landingPrivacySub">We take your data seriously</p>
+    <div class="landing-privacy-grid">
+      <div class="landing-privacy-item"><h4 data-i18n="landingP1Title">PIN Protected</h4><p data-i18n="landingP1Desc">Secure 4-digit PIN keeps your data safe</p></div>
+      <div class="landing-privacy-item"><h4 data-i18n="landingP2Title">Local Storage</h4><p data-i18n="landingP2Desc">Your data stays on your device</p></div>
+      <div class="landing-privacy-item"><h4 data-i18n="landingP3Title">No Tracking</h4><p data-i18n="landingP3Desc">No ads, no third-party tracking</p></div>
+      <div class="landing-privacy-item"><h4 data-i18n="landingP4Title">Full Control</h4><p data-i18n="landingP4Desc">Export or delete your data anytime</p></div>
+    </div>
+  </div>
+  <div class="landing-cta-bottom">
+    <h2 data-i18n="landingBottomTitle">Ready to Begin?</h2>
+    <p style="color:var(--ink-soft);font-size:17px;margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto" data-i18n="landingBottomSub">Join thousands enjoying gentle cognitive exercise</p>
+    <button class="btn btn-primary" onclick="enterApp()" data-i18n="landingGetStarted2">Start Your Journey</button>
+  </div>
+</div>
+
+<!-- Onboarding -->
+<div class="onboarding-overlay" id="onboarding">
+  <div class="onboarding-card">
+    <div class="onboarding-progress" id="onboardingProgress"></div>
+    <div class="onboarding-step active" id="onboardStep1">
+      <div style="font-size:64px;margin-bottom:10px">&#x1F9D9;</div>
+      <h2 data-i18n="onboardWelcome">Welcome to MindSaathi!</h2>
+      <p data-i18n="onboardWelcomeSub">Let us personalize your experience. This takes less than a minute.</p>
+    </div>
+    <div class="onboarding-step" id="onboardStep2">
+      <h2 data-i18n="onboardLangTitle">Choose Your Language</h2>
+      <p data-i18n="onboardLangSub">You can change this anytime from the top of any screen.</p>
+      <div class="onboarding-options" id="onboardLangOptions"></div>
+    </div>
+    <div class="onboarding-step" id="onboardStep3">
+      <h2 data-i18n="onboardRoleTitle">Who Will Use MindSaathi?</h2>
+      <p data-i18n="onboardRoleSub">This helps us customize your home screen.</p>
+      <div class="role-pick-row" id="onboardRoleOptions">
+        <div class="role-pick-card" onclick="selectOnboardRole('elder')"><div style="font-size:36px;margin-bottom:6px">&#x1F9D3;</div><div style="font-weight:700" data-i18n="onboardRoleElder">Elder / User</div></div>
+        <div class="role-pick-card" onclick="selectOnboardRole('caregiver')"><div style="font-size:36px;margin-bottom:6px">&#x1F468;&#x200D;&#x2695;&#xFE0F;</div><div style="font-weight:700" data-i18n="onboardRoleCaregiver">Caregiver / Family</div></div>
+      </div>
+    </div>
+    <div class="onboarding-step" id="onboardStep4">
+      <h2 data-i18n="onboardTextTitle">Text Size Preference</h2>
+      <p data-i18n="onboardTextSub">Choose a comfortable reading size.</p>
+      <div class="text-size-options" id="onboardTextOptions">
+        <div class="text-size-opt" onclick="selectOnboardText('normal')"><div style="font-size:16px;font-weight:700">Aa</div><div style="font-size:11px;margin-top:4px">Normal</div></div>
+        <div class="text-size-opt" onclick="selectOnboardText('large')"><div style="font-size:20px;font-weight:700">Aa</div><div style="font-size:11px;margin-top:4px">Large</div></div>
+        <div class="text-size-opt" onclick="selectOnboardText('xlarge')"><div style="font-size:26px;font-weight:700">Aa</div><div style="font-size:11px;margin-top:4px">X-Large</div></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;justify-content:space-between;margin-top:10px">
+      <button class="btn btn-ghost btn-sm" id="onboardPrev" onclick="onboardPrev()" style="visibility:hidden" data-i18n="onboardBack">Back</button>
+      <button class="btn btn-primary" id="onboardNext" onclick="onboardNext()" data-i18n="onboardNext">Next</button>
+    </div>
+  </div>
+</div>
+
+<!-- Login Screen -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card" id="loginCard">
+    <div id="loginStepPick" class="login-step">
+      <div class="login-logo">&#x1F9D9;</div>
+      <h1>MindSaathi</h1>
+      <p class="login-tagline" data-i18n="loginTagline">Welcome back. Choose your profile to continue.</p>
+      <div class="profile-picker" id="profilePicker"></div>
+    </div>
+    <div id="loginStepPIN" class="login-step" style="display:none">
+      <button class="login-back" onclick="showLoginStep('pick')" data-i18n="back">&#8592; Back</button>
+      <div class="login-pin-avatar" id="loginPinAvatar">&#x1F9D3;</div>
+      <h3 data-i18n="enterPin">Enter 4-Digit PIN</h3>
+      <p class="pin-hint" data-i18n="pinHint">Hint: 1 2 3 4</p>
+      <div class="pin-dots" id="pinDots">
+        <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
+      </div>
+      <div class="pin-keypad" id="pinKeypad"></div>
+      <button class="login-voice-btn" onclick="startLoginVoice()" data-i18n="speakPin">Speak PIN</button>
+    </div>
+    <div id="loginStepSignup" class="login-step" style="display:none">
+      <button class="login-back" onclick="showLoginStep('pick')" data-i18n="back">&#8592; Back</button>
+      <h2 style="font-family:'Fraunces',serif;margin-bottom:16px" data-i18n="createProfile">Create Profile</h2>
+      <div class="form-group"><label data-i18n="yourName">Your Name</label><input id="signupName" placeholder="e.g. Ratna Devi"></div>
+      <div class="form-group"><label data-i18n="selectRole">Select Role</label>
+        <div class="role-pick-row">
+          <div class="role-pick-card selected" onclick="selectSignupRole(this,'elder')"><div style="font-size:28px">&#x1F9D3;</div><div style="font-weight:700" data-i18n="roleElder">Elder</div></div>
+          <div class="role-pick-card" onclick="selectSignupRole(this,'caregiver')"><div style="font-size:28px">&#x1F468;&#x200D;&#x2695;&#xFE0F;</div><div style="font-weight:700" data-i18n="roleCaregiver">Caregiver</div></div>
+        </div>
+      </div>
+      <div class="form-group"><label data-i18n="chooseAvatar">Choose Avatar</label>
+        <div class="avatar-pick-row" id="signupAvatars"></div>
+      </div>
+      <div class="form-group"><label data-i18n="createPin">Create 4-Digit PIN</label>
+        <div class="pin-keypad" id="signupPinKeypad"></div>
+        <div class="pin-dots" id="signupPinDots"><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div></div>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="completeSignup()" data-i18n="createProfileBtn">Create Profile</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- App Shell -->
+<div class="app" id="appShell" style="display:none">
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <div class="logo"><div class="logo-icon">&#x1F9D9;</div><div class="logo-text"><h1>MindSaathi</h1><p data-i18n="brainGames">Brain Games & Wellness</p></div></div>
+    <div class="nav-section">
+      <div class="nav-section-title" data-i18n="mainNav">MAIN</div>
+      <button class="nav-item active" onclick="showView('dashboard')"><span class="nav-icon">&#x1F3E0;</span><span data-i18n="navDashboard">Dashboard</span></button>
+      <button class="nav-item" onclick="showView('games')"><span class="nav-icon">&#x1F3AF;</span><span data-i18n="navGames">Games</span></button>
+      <button class="nav-item" onclick="showView('wellness')"><span class="nav-icon">&#x2764;&#xFE0F;</span><span data-i18n="navWellness">Wellness</span></button>
+      <button class="nav-item" onclick="showView('tasks')"><span class="nav-icon">&#x2705;</span><span data-i18n="navTasks">Tasks</span></button>
+      <button class="nav-item" onclick="showView('routine')"><span class="nav-icon">&#x1F4C5;</span><span data-i18n="navRoutine">Daily Routine</span></button>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title" data-i18n="socialNav">SOCIAL</div>
+      <button class="nav-item" onclick="showView('family')"><span class="nav-icon">&#x1F465;</span><span data-i18n="navFamily">Family Circle</span></button>
+      <button class="nav-item" onclick="showView('multiplayer')"><span class="nav-icon">&#x1F3AE;</span><span data-i18n="navMultiplayer">Play Together</span></button>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title" data-i18n="moreNav">MORE</div>
+      <button class="nav-item" onclick="showView('notifications')"><span class="nav-icon">&#x1F514;</span><span data-i18n="navNotifications">Notifications</span><span class="badge-notify" id="notifBadge" style="display:none">0</span></button>
+      <button class="nav-item" onclick="showView('achievements')"><span class="nav-icon">&#x1F3C6;</span><span data-i18n="navAchievements">Achievements</span></button>
+      <button class="nav-item" onclick="showView('reminders')"><span class="nav-icon">&#x23F0;</span><span data-i18n="navReminders">Reminders</span></button>
+      <button class="nav-item" onclick="showView('settings')"><span class="nav-icon">&#x2699;&#xFE0F;</span><span data-i18n="navSettings">Settings</span></button>
+    </div>
+    <div style="margin-top:4px;padding:0 14px">
+      <button class="emergency-btn" onclick="triggerEmergency()" data-i18n="emergency">Emergency Contacts</button>
+    </div>
+    <div class="user-profile" id="sidebarProfile"></div>
+  </nav>
+
+  <!-- Content Area -->
+  <div class="content">
+    <div class="topbar">
+      <button class="hamburger" onclick="toggleMobileSidebar()" aria-label="Menu">&#x2630;</button>
+      <div class="page-title" id="pageTitle" data-i18n="dashboard">Dashboard</div>
+      <div class="topbar-actions">
+        <button class="btn btn-ghost btn-sm desktop-only" onclick="openAccessibility()" data-i18n="accessibility">&#x267F; Accessibility</button>
+        <button class="voice-button" onclick="startVoice()" aria-label="Voice Input" id="voiceBtn">&#x1F3A4;</button>
+      </div>
+    </div>
+
+    <div class="main-view" id="mainView">
+      <!-- Dashboard View -->
+      <div class="view active" id="view-dashboard"></div>
+      <!-- Games View -->
+      <div class="view" id="view-games"></div>
+      <!-- Wellness View -->
+      <div class="view" id="view-wellness"></div>
+      <!-- Tasks View -->
+      <div class="view" id="view-tasks"></div>
+      <!-- Routine View -->
+      <div class="view" id="view-routine"></div>
+      <!-- Family View -->
+      <div class="view" id="view-family"></div>
+      <!-- Multiplayer View -->
+      <div class="view" id="view-multiplayer"></div>
+      <!-- Notifications View -->
+      <div class="view" id="view-notifications"></div>
+      <!-- Achievements View -->
+      <div class="view" id="view-achievements"></div>
+      <!-- Reminders View -->
+      <div class="view" id="view-reminders"></div>
+      <!-- Settings View -->
+      <div class="view" id="view-settings"></div>
+      <!-- Caregiver Dashboard -->
+      <div class="view" id="view-caregiver"></div>
+      <!-- Privacy Center -->
+      <div class="view" id="view-privacy"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Bottom Nav (Mobile) -->
+<div class="bottom-nav" id="bottomNav" style="display:none">
+  <button class="bottom-nav-item active" onclick="showView('dashboard')"><span class="bn-icon">&#x1F3E0;</span><span data-i18n="navDashboard">Home</span></button>
+  <button class="bottom-nav-item" onclick="showView('games')"><span class="bn-icon">&#x1F3AF;</span><span data-i18n="navGames">Games</span></button>
+  <button class="bottom-nav-item" onclick="showView('family')"><span class="bn-icon">&#x1F465;</span><span data-i18n="navFamily">Family</span></button>
+  <button class="bottom-nav-item" onclick="showView('notifications')"><span class="bn-icon">&#x1F514;</span><span data-i18n="navNotifications">Alerts</span></button>
+  <button class="bottom-nav-item" onclick="showView('settings')"><span class="bn-icon">&#x2699;&#xFE0F;</span><span data-i18n="navSettings">More</span></button>
+</div>
+
+<!-- Buddy Button -->
+<button class="buddy-btn" id="buddyBtn" onclick="toggleBuddy()" style="display:none" aria-label="Wellness Buddy">&#x1F9D9;</button>
+<div class="buddy-bubble" id="buddyBubble"></div>
+
+<!-- Voice Prompt Overlay -->
+<div class="voice-prompt-overlay" id="voiceOverlay">
+  <div class="voice-prompt-card">
+    <div class="mic-icon">&#x1F3A4;</div>
+    <h3 data-i18n="voiceListening">Listening...</h3>
+    <p data-i18n="voiceSpeak">Speak a command like "Play games", "Take a breath", or "How am I doing?"</p>
+    <div class="voice-prompt-listen" id="voiceTranscript"></div>
+    <button class="btn btn-ghost btn-sm" onclick="stopVoice()" style="margin-top:16px" data-i18n="voiceCancel">Cancel</button>
+  </div>
+</div>
+
+<!-- Accessibility Panel -->
+<div class="accessibility-overlay" id="accessOverlay" onclick="closeAccessibility()"></div>
+<div class="accessibility-panel" id="accessPanel">
+  <button class="accessibility-close" onclick="closeAccessibility()">&times;</button>
+  <h3 data-i18n="accessTitle">Accessibility</h3>
+  <div class="accessibility-row">
+    <label data-i18n="accessTextSize">Text Size</label>
+    <div class="abtns">
+      <button onclick="setTextSize('normal')" id="ts-normal">Aa</button>
+      <button onclick="setTextSize('large')" id="ts-large" style="font-size:17px">Aa</button>
+      <button class="active" onclick="setTextSize('xlarge')" id="ts-xlarge" style="font-size:21px">Aa</button>
+    </div>
+  </div>
+  <div class="accessibility-row">
+    <label data-i18n="accessHighContrast">High Contrast</label>
+    <div class="abtns">
+      <button class="active" onclick="setContrast('normal')" id="hc-normal" data-i18n="accessOff">Off</button>
+      <button onclick="setContrast('high')" id="hc-high" data-i18n="accessOn">On</button>
+    </div>
+  </div>
+  <div class="accessibility-row">
+    <label data-i18n="accessMotion">Reduce Motion</label>
+    <div class="abtns">
+      <button class="active" onclick="setMotion('normal')" id="rm-normal" data-i18n="accessOff">Off</button>
+      <button onclick="setMotion('reduce')" id="rm-reduce" data-i18n="accessOn">On</button>
+    </div>
+  </div>
+  <div class="accessibility-row">
+    <label data-i18n="accessButtons">Larger Buttons</label>
+    <div class="abtns">
+      <button class="active" onclick="setLargeButtons(false)" id="lb-off" data-i18n="accessOff">Off</button>
+      <button onclick="setLargeButtons(true)" id="lb-on" data-i18n="accessOn">On</button>
+    </div>
+  </div>
+  <div class="accessibility-row">
+    <label data-i18n="accessSimplify">Simplify Decorations</label>
+    <div class="abtns">
+      <button class="active" onclick="setSimplify(false)" id="sd-off" data-i18n="accessOff">Off</button>
+      <button onclick="setSimplify(true)" id="sd-on" data-i18n="accessOn">On</button>
+    </div>
+  </div>
+  <hr style="margin:20px 0;border:none;border-top:2px solid var(--border)">
+  <h3 data-i18n="accessPrivacy">Privacy & Data</h3>
+  <div style="margin-top:12px">
+    <button class="btn btn-ghost btn-sm btn-block" onclick="requestPrivacyPin()" data-i18n="accessPrivacyCenter">Open Privacy Center</button>
+  </div>
+</div>
+
+<!-- Privacy PIN Modal -->
+<div class="privacy-pin-modal" id="privacyPinModal">
+  <div class="privacy-pin-card">
+    <div class="privacy-pin-icon">&#x1F512;</div>
+    <h3 data-i18n="privacyEnterPin">Enter PIN to Access Privacy Settings</h3>
+    <div class="privacy-pin-dots" id="privacyPinDots"><div class="privacy-pin-dot"></div><div class="privacy-pin-dot"></div><div class="privacy-pin-dot"></div><div class="privacy-pin-dot"></div></div>
+    <div class="privacy-pin-keypad" id="privacyPinKeypad"></div>
+    <div class="privacy-pin-error" id="privacyPinError"></div>
+    <button class="privacy-pin-cancel" onclick="closePrivacyPin()" data-i18n="cancel">Cancel</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Game Modal -->
+<div class="modal" id="gameModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title" id="gameModalTitle">Game</div>
+      <button class="modal-close" onclick="closeGameModal()">&times;</button>
+    </div>
+    <div id="gameModalBody"></div>
+  </div>
+</div>
+
+<!-- Achievement Modal -->
+<div class="modal" id="achievementModal">
+  <div class="modal-content" style="max-width:520px;text-align:center">
+    <div style="font-size:72px;margin-bottom:8px" id="achieveIcon">&#x1F3C6;</div>
+    <div class="modal-title" id="achieveTitle" style="margin-bottom:8px">Achievement Unlocked!</div>
+    <p id="achieveDesc" style="font-size:17px;color:var(--ink-soft);margin-bottom:20px"></p>
+    <button class="btn btn-primary" onclick="document.getElementById('achievementModal').classList.remove('active')" data-i18n="awesome">Awesome!</button>
+  </div>
+</div>
+
+<script>
+/* ===== STATE ===== */
+const PIN = '1234';
+let S = {
+  lang: 'english', loggedIn: false, currentView: 'dashboard', pinBuf: '',
+  selectedUser: null, role: 'elder', userName: '', avatar: '\u{1F9D3}',
+  onboarding: false, onboardStep: 0, onboardLang: 'english', onboardRole: 'elder', onboardText: 'normal',
+  gamesPlayed: 0, gamesWon: 0, streak: 0, points: 0, level: 1, breathSessions: 0,
+  achievements: [], notifications: [], messages: [], moodHistory: [],
+  healthLog: [], medications: [], reminders: [], tasks: [], routineItems: [],
+  buddies: [], privacyConsent: {}, savedGameStates: {}, familyMessages: [],
+  difficulty: { memory: 4, sequence: 3, pattern: 3, naming: 2, objectRecall: 3, attention: 4, dailyRecall: 2 },
+  accessibility: { textSize: 'xlarge', contrast: 'normal', motion: 'normal', largeButtons: false, simplify: false },
+  voiceListening: false, buddyShown: false, privacyPinBuf: '', privacyPinStep: 0,
+  demoMode: false, currentGame: null
+};
+const DEMO = {
+  users: [
+    { id: 'elder1', name: 'Ratna Devi', role: 'elder', avatar: '\u{1F9D3}' },
+    { id: 'cg1', name: 'Priya Sharma', role: 'caregiver', avatar: '\u{1F468}\u200D\u{2695}\u{FE0F}' }
+  ],
+  defaultUser: 'elder1',
+  notifications: [
+    { id: 1, icon: '\u{1F3B5}', title: 'Time for your afternoon game!', text: 'A quick memory match keeps your mind sharp.', time: '2 hours ago', read: false },
+    { id: 2, icon: '\u{2764}\u{FE0F}', title: 'Mood check-in', text: 'How are you feeling today? Share with your family.', time: '5 hours ago', read: false },
+    { id: 3, icon: '\u{1F4CB}', title: 'Task completed!', text: 'You finished your morning walk task. +10 points!', time: 'Yesterday', read: true },
+    { id: 4, icon: '\u{23F0}', title: 'Medication reminder', text: 'Time for your evening medication.', time: 'Yesterday', read: true }
+  ],
+  messages: [
+    { from: 'Priya', text: 'Great job on your streak! Keep it up, Dadi! \u{1F44D}', time: '10 min ago', reactions: { '\u{1F44D}': 3, '\u{2764}\u{FE0F}': 2 } },
+    { from: 'Rahul', text: 'Will visit this weekend. Excited to play Memory Match with you!', time: '1 hour ago', reactions: { '\u{1F60A}': 4, '\u{1F44D}': 1 } },
+    { from: 'Priya', text: 'Dr. Mehta says your cognitive scores are improving!', time: 'Yesterday', reactions: { '\u{1F389}': 5, '\u{2764}\u{FE0F}': 3 } }
+  ],
+  achievements: [
+    { id: 'a1', icon: '\u{1F31F}', title: 'First Steps', desc: 'Complete your first game', unlocked: true },
+    { id: 'a2', icon: '\u{1F525}', title: 'On Fire', desc: 'Win 3 games in a row', unlocked: true },
+    { id: 'a3', icon: '\u{1F3C6}', title: 'Champion', desc: 'Reach level 5', unlocked: false },
+    { id: 'a4', icon: '\u{1F4AA}', title: 'Strong Mind', desc: 'Complete 10 memory games', unlocked: false },
+    { id: 'a5', icon: '\u{2728}', title: 'Mindful', desc: 'Complete 5 breathing sessions', unlocked: false },
+    { id: 'a6', icon: '\u{1F91D}', title: 'Social Star', desc: 'Send 10 messages to family', unlocked: false },
+    { id: 'a7', icon: '\u{1F4C5}', title: 'Consistent', desc: '7-day streak', unlocked: false },
+    { id: 'a8', icon: '\u{1F3AF}', title: 'Sharp Eye', desc: 'Get 100% in an attention game', unlocked: false }
+  ],
+  medications: [
+    { name: 'Blood Pressure Tablet', time: '8:00 AM', taken: true },
+    { name: 'Vitamin D', time: '10:00 AM', taken: true },
+    { name: 'Evening Supplement', time: '6:00 PM', taken: false }
+  ],
+  reminders: [
+    { id: 1, icon: '\u{1F3B5}', name: 'Morning Raga Listening', meta: 'Daily \u2022 7:30 AM', done: false },
+    { id: 2, icon: '\u{1F9D8}', name: 'Yoga Stretch', meta: 'Daily \u2022 8:00 AM', done: true },
+    { id: 3, icon: '\u{1F4CB}', name: 'Memory Journal', meta: 'Daily \u2022 9:00 AM', done: false },
+    { id: 4, icon: '\u{2615}', name: 'Tea with Family', meta: 'Daily \u2022 4:00 PM', done: false }
+  ],
+  routine: [
+    { time: '6:30 AM', emoji: '\u{1F305}', label: 'Wake Up & Stretch', status: 'completed' },
+    { time: '7:00 AM', emoji: '\u{1F9D8}', label: 'Morning Yoga', status: 'completed' },
+    { time: '7:30 AM', emoji: '\u{2615}', label: 'Breakfast & Medicine', status: 'completed' },
+    { time: '8:30 AM', emoji: '\u{1F3AF}', label: 'Brain Games Session', status: 'current' },
+    { time: '10:00 AM', emoji: '\u{1F4D6}', label: 'Reading Time', status: 'upcoming' },
+    { time: '11:00 AM', emoji: '\u{1F3B5}', label: 'Music & Memories', status: 'upcoming' },
+    { time: '12:00 PM', emoji: '\u{1F35D}', label: 'Lunch', status: 'upcoming' },
+    { time: '2:00 PM', emoji: '\u{1F9D1}\u200D\u{1F4BC}', label: 'Nap Time', status: 'upcoming' },
+    { time: '4:00 PM', emoji: '\u{2615}', label: 'Tea & Chat', status: 'upcoming' },
+    { time: '5:00 PM', emoji: '\u{1F3C3}\u200D\u{2640}\u{FE0F}', label: 'Evening Walk', status: 'upcoming' },
+    { time: '7:00 PM', emoji: '\u{1F37B}', label: 'Family Time', status: 'upcoming' },
+    { time: '9:00 PM', emoji: '\u{1F319}', label: 'Wind Down', status: 'upcoming' }
+  ],
+  tasks: [
+    { id: 1, name: 'Morning walk - 10 minutes', done: true, pts: 10 },
+    { id: 2, name: 'Play one memory game', done: true, pts: 15 },
+    { id: 3, name: 'Write 3 things you remember from today', done: false, pts: 20 },
+    { id: 4, name: 'Call a family member', done: false, pts: 15 }
+  ]
+};
+const T = {
+  english: {
+    brainGames:'Brain Games & Wellness', mainNav:'MAIN', socialNav:'SOCIAL', moreNav:'MORE',
+    navDashboard:'Dashboard', navGames:'Games', navWellness:'Wellness', navTasks:'Tasks',
+    navRoutine:'Daily Routine', navFamily:'Family Circle', navMultiplayer:'Play Together',
+    navNotifications:'Notifications', navAchievements:'Achievements', navReminders:'Reminders',
+    navSettings:'Settings', dashboard:'Dashboard', games:'Games', wellness:'Wellness',
+    tasks:'Tasks', routine:'Daily Routine', family:'Family Circle', multiplayer:'Play Together',
+    notifications:'Notifications', achievements:'Achievements', reminders:'Reminders',
+    settings:'Settings', accessibility:'Accessibility', emergency:'Emergency Contacts',
+    voiceListening:'Listening...', voiceSpeak:'Speak a command like "Play games", "Take a breath", or "How am I doing?"',
+    voiceCancel:'Cancel', demoBadge:'DEMO MODE', back:'Back',
+    loginTagline:'Welcome back. Choose your profile to continue.', enterPin:'Enter 4-Digit PIN',
+    pinHint:'Hint: 1 2 3 4', speakPin:'Speak PIN', createProfile:'Create Profile',
+    yourName:'Your Name', selectRole:'Select Role', roleElder:'Elder', roleCaregiver:'Caregiver',
+    chooseAvatar:'Choose Avatar', createPin:'Create 4-Digit PIN', createProfileBtn:'Create Profile',
+    awesome:'Awesome!', cancel:'Cancel',
+    accessTitle:'Accessibility', accessTextSize:'Text Size', accessHighContrast:'High Contrast',
+    accessMotion:'Reduce Motion', accessButtons:'Larger Buttons', accessSimplify:'Simplify Decorations',
+    accessPrivacy:'Privacy & Data', accessPrivacyCenter:'Open Privacy Center', accessOff:'Off', accessOn:'On',
+    privacyEnterPin:'Enter PIN to Access Privacy Settings',
+    onboardWelcome:'Welcome to MindSaathi!', onboardWelcomeSub:'Let us personalize your experience. This takes less than a minute.',
+    onboardLangTitle:'Choose Your Language', onboardLangSub:'You can change this anytime.',
+    onboardRoleTitle:'Who Will Use MindSaathi?', onboardRoleSub:'This helps us customize your home screen.',
+    onboardRoleElder:'Elder / User', onboardRoleCaregiver:'Caregiver / Family',
+    onboardTextTitle:'Text Size Preference', onboardTextSub:'Choose a comfortable reading size.',
+    onboardBack:'Back', onboardNext:'Next',
+    landingTagline:'Empowering active minds through gentle, adaptive cognitive play',
+    landingSub:'A culturally sensitive, multi-language cognitive engagement platform designed for seniors.',
+    landingGetStarted:'Get Started', landingTryDemo:'Try Demo', landingFeaturesTitle:'Thoughtfully Designed Features',
+    landingFeaturesSub:'Every detail crafted to feel familiar, safe, and engaging',
+    landingFeat1Title:'Adaptive Brain Games', landingFeat1Desc:'6 personalized games that adjust difficulty to your comfort level',
+    landingFeat2Title:'8 Indian Languages', landingFeat2Desc:'Full support for Hindi, Bengali, Assamese, Manipuri, Khasi, Mizo, Gujarati & English',
+    landingFeat3Title:'Family Connected', landingFeat3Desc:'Share progress and encouragement with family members',
+    landingFeat4Title:'Daily Wellness', landingFeat4Desc:'Smart routine timeline, medication reminders, and mood tracking',
+    landingFeat5Title:'Privacy First', landingFeat5Desc:'PIN-protected access with full control over your data',
+    landingFeat6Title:'Voice Control', landingFeat6Desc:'Navigate hands-free with built-in voice commands',
+    landingGamesTitle:'Engaging Cognitive Games', landingGamesSub:'Fun activities backed by cognitive science',
+    landingGame1:'Memory Match', landingGame1Desc:'Find matching pairs to boost recall',
+    landingGame2:'Sequence Song', landingGame2Desc:'Recreate musical patterns',
+    landingGame3:'Pattern Flash', landingGame3Desc:'Remember and recreate patterns',
+    landingGame4:'Name Recall', landingGame4Desc:'Match names to faces',
+    landingGame5:'Object Recall', landingGame5Desc:'Remember everyday items',
+    landingGame6:'Attention Focus', landingGame6Desc:'Spot the unique item',
+    landingPrivacyTitle:'Your Privacy, Your Control', landingPrivacySub:'We take your data seriously',
+    landingP1Title:'PIN Protected', landingP1Desc:'Secure 4-digit PIN keeps your data safe',
+    landingP2Title:'Local Storage', landingP2Desc:'Your data stays on your device',
+    landingP3Title:'No Tracking', landingP3Desc:'No ads, no third-party tracking',
+    landingP4Title:'Full Control', landingP4Desc:'Export or delete your data anytime',
+    landingBottomTitle:'Ready to Begin?', landingBottomSub:'Join thousands enjoying gentle cognitive exercise',
+    landingGetStarted2:'Start Your Journey',
+    goodMorning:'Good morning', goodAfternoon:'Good afternoon', goodEvening:'Good evening',
+    yourProgress:'Your Progress', gamesPlayed:'Games Played', gamesWon:'Games Won',
+    streak:'Streak', points:'Points', level:'Level',
+    quickActions:'Quick Actions', playMemory:'Memory Match', playSequence:'Sequence Song',
+    playPattern:'Pattern Flash', playNaming:'Name Recall', playObject:'Object Recall',
+    playAttention:'Attention Focus', takeBreath:'Breathing', viewTasks:'Tasks',
+    todaysJourney:"Today's Journey", viewAllRoutine:'View Full Routine',
+    buddyTitle:'Your Wellness Buddy', buddyEmpty:'No tips yet. Check back soon!',
+    wellbeingCheck:'Wellbeing Check', howAreYou:'How are you feeling right now?',
+    moodGreat:'Great', moodGood:'Good', moodOkay:'Okay', moodLow:'Low', moodBad:'Bad',
+    moodThanks:'Thank you for sharing! Your family can see how you are doing.',
+    pendingTasks:'Pending Tasks', allDone:'All tasks completed for today!',
+    tasksCompleted:'tasks completed', continueGame:'Continue Playing',
+    dailyRoutine:'Daily Routine', routineCompleted:'completed', routineUpcoming:'upcoming', routineCurrent:'in progress',
+    familyCircle:'Family Circle', sendEncouragement:'Send Encouragement',
+    encourageMessages:[
+      { icon:'\u{1F44D}', text:'You are doing great!' },
+      { icon:'\u{2764}\u{FE0F}', text:'We love you!' },
+      { icon:'\u{1F389}', text:'So proud of you!' },
+      { icon:'\u{1F4AA}', text:'Stay strong!' }
+    ],
+    playTogether:'Play Together', findMatch:'Find Match', leaderboard:'Leaderboard',
+    noNotifications:'No new notifications', remindersTitle:'Reminders',
+    achievementUnlocked:'Achievement Unlocked!',
+    settingsTitle:'Settings', profileSettings:'Profile Settings', privacySettings:'Privacy Settings',
+    editProfile:'Edit Profile', exportData:'Export My Data', deleteData:'Delete All Data',
+    privacyCenter:'Privacy Center', privacyDesc:'Control how your data is used',
+    consentTracking:'Usage Analytics', consentTrackingDesc:'Help improve MindSaathi with anonymous usage data',
+    consentFamily:'Family Sharing', consentFamilyDesc:'Allow family members to see your progress',
+    consentReminders:'Smart Reminders', consentRemindersDesc:'Personalized reminders based on your routine',
+    saveSettings:'Save Settings', saved:'Settings saved!',
+    dailyRecallTitle:'Daily Recall', dailyRecallDesc:'Remember what happened today',
+    dailyRecallQ:'What did you have for breakfast this morning?',
+    recallCorrect:'Correct! Great memory!', recallTryAgain:'Not quite. Good effort!',
+    levelUp:'Level Up!', newLevel:'You reached Level',
+    emergencyContacts:'Emergency Contacts', emergencyCall:'Call', emergencyMsg:'Message',
+    tapToOpen:'Tap to open', player:'Player', score:'Score',
+    objectsToRecall:'Remember these objects!', whatWasThere:'What was here?',
+    correct:'Correct!', wrong:'Not quite!',
+    attentionPrompt:'Find the unique item!', attentionTarget:'There is one',
+    noAchievements:'Keep playing to unlock achievements!',
+    breathingTitle:'Breathing Exercise', breatheIn:'Breathe In', breatheHold:'Hold',
+    breatheOut:'Breathe Out', breatheComplete:'Session complete! Great job.',
+    startBreathe:'Start Session', stopBreathe:'Stop',
+    todaysRoutineTip:'Keep up the great routine. Today is a good day for a memory game and a short walk.',
+    gamesTip:'Games adapt to your progress. Start with Memory Match or try something new today!',
+    moodHistory:'Mood History', medReminders:'Medication Reminders', noMedMeds:'No medications to show',
+    familyMessages:'Messages', typeMessage:'Type a message...', sendMsg:'Send',
+    msgSent:'Message sent!', noMsg:'No messages yet. Start a conversation!',
+    sendMessage:'Send a Message', caregiverInsight:'Caregiver Insight',
+    cgInsightText:'Your loved one has been engaging well. Encourage a short game session today.',
+    caregiverDashboard:'Caregiver Dashboard', cgOverview:'Here is how your loved ones are doing',
+    aiInsightTitle:'AI Insights', cgInsightMain:'Your loved one has maintained an activity streak. Encourage a walk and a memory game today.',
+    completion:'Completion Rate', caregiverView:'Elder Activity',
+    unlockLevel:'Level', unlocked:'Unlocked', notUnlocked:'Locked',
+    playAgain:'Play Again', points:'points', watch:'Watch and remember...',
+    yourTurn:'Your turn!', seqWrong:'Oops, try again!', seqWin:'Great memory!',
+    watchPattern:'Watch the pattern', recreate:'Recreate it! Tap the grid',
+    whoIs:'Who is this?', hideNow:'Hide Now', memorize:'Memorize the objects...',
+    pairs:'pairs', moves:'moves', round:'Round', gameLoading:'Get ready...',
+    snoozed:'Reminder snoozed', noReminders:'No reminders set',
+    noNotifications:'No notifications yet', taskDone:'Nice! +5 points',
+    logout:'Logout', demoMode:'Demo Mode', demoActive:'Demo mode active',
+    calling:'Calling emergency contact...', emergencyCallConfirm:'Call emergency contact?',
+    welcomeOnboard:'Welcome to MindSaathi!', finish:'Finish',
+    tryAgain:'try again', matchComb:'Finding a match...',
+    multiplayerSub:'Compete with family or play together',
+    preferredLanguage:'Preferred Language', langPref:'Change from the top of any screen',
+    accessDesc:'Text size, contrast & more', exportDesc:'Download a copy of your data',
+    deleteDesc:'This removes all your data permanently', exported:'Data exported!',
+    confirmDelete:'Delete all data permanently? This cannot be undone.',
+    privacyUnlocked:'Privacy center unlocked', wrongPin:'Incorrect PIN, try again',
+    voiceUnsupported:'Voice not supported in this browser', voiceError:'Voice unavailable',
+    voiceUnknown:'Try saying "Play games"', sessionsCompleted:'sessions completed',
+    buddyTip:'Take a moment to relax and breathe deeply.',
+    welcomeBack:'Welcome back', taskComplete:'Task complete! +5 points',
+    takeMed:'Take medication', medTaken:'Medication marked taken'
+  },
+  hindi: {
+    brainGames:'\u092C\u094D\u0930\u0947\u0907\u0928 \u0917\u0947\u092E\u094D\u0938 \u0914\u0930 \u0935\u0947\u0932\u0928\u0947\u0938', mainNav:'\u092E\u0941\u0916\u094D\u092F', socialNav:'\u0938\u093E\u092E\u093E\u091C\u093F\u0915', moreNav:'\u0905\u0924\u094D\u0930',
+    navDashboard:'\u0921\u0948\u0936\u092C\u094B\u0930\u094D\u0921', navGames:'\u0917\u0947\u092E\u094D\u0938', navWellness:'\u0915\u0932\u094D\u092F\u093E\u0923', navTasks:'\u0915\u093E\u0930\u094D\u092F',
+    navRoutine:'\u0926\u0948\u0928\u093F\u0915 \u0926\u093F\u0928\u091A\u0930\u094D\u092F', navFamily:'\u092A\u0930\u093F\u0935\u093E\u0930 \u0935\u0943\u0924\u094D\u0924\u093E', navMultiplayer:'\u0938\u093E\u0925 \u0916\u0947\u0932\u0947\u0902',
+    navNotifications:'\u0938\u0942\u091A\u0928\u093E\u090F\u0901', navAchievements:'\u0909\u092A\u0932\u0927', navReminders:'\u092F\u093E\u0926\u0947\u0939\u093E\u0901\u093E\u0901\u0939',
+    navSettings:'\u0938\u0947\u091F\u093F\u0902\u0917\u094D\u0938', dashboard:'\u0921\u0948\u0936\u092C\u094B\u0930\u094D\u0921', games:'\u0917\u0947\u092E\u094D\u0938', wellness:'\u0915\u0932\u094D\u092F\u093E\u0923',
+    tasks:'\u0915\u093E\u0930\u094D\u092F', routine:'\u0926\u0948\u0928\u093F\u0915 \u0926\u093F\u0928\u091A\u0930\u094D\u092F', family:'\u092A\u0930\u093F\u0935\u093E\u0930 \u0935\u0943\u0924\u094D\u0924\u093E', multiplayer:'\u0938\u093E\u0925 \u0916\u0947\u0932\u0947\u0902',
+    notifications:'\u0938\u0942\u091A\u0928\u093E\u090F\u0901', achievements:'\u0909\u092A\u0932\u0927', reminders:'\u092F\u093E\u0926\u0947\u0939\u093E\u0901\u093E\u0901\u0939', settings:'\u0938\u0947\u091F\u093F\u0902\u0917\u094D\u0938',
+    goodMorning:'\u0938\u0941\u092C\u0939 \u092A\u0930\u0935\u093E\u0930', goodAfternoon:'\u0928\u092E\u0938\u094D\u0925\u0947', goodEvening:'\u0936\u093E\u092E \u0915\u094B',
+    playMemory:'\u092F\u093E\u0926\u0916\u093E\u0938\u0940 \u092E\u0948\u091A', playSequence:'\u0915\u094D\u0930\u092E \u0917\u093E\u0928\u093E', playPattern:'\u092A\u0948\u091F\u0930\u094D\u0928 \u092B\u094D\u0932\u0948\u0937', playNaming:'\u0928\u093E\u092E \u092F\u093E\u0926', playObject:'\u0935\u0938\u094D\u0924\u0941 \u092F\u093E\u0926', playAttention:'\u0927\u094D\u092F\u093E\u0928', takeBreath:'\u0938\u093E\u0901\u0938', viewTasks:'\u0915\u093E\u0930\u094D\u092F',
+    howAreYou:'\u0906\u092A \u0915\u0948\u0938\u0947 \u0939\u0948\u0902?', moodGreat:'\u092C\u0939\u0941\u0924 \u0905\u091A\u094D\u091B\u093E', moodGood:'\u0905\u091A\u094D\u091B\u093E', moodOkay:'\u0920\u0940\u0915 \u0939\u0948', moodLow:'\u0915\u092E', moodBad:'\u0916\u0930\u093E\u092C',
+    breatheIn:'\u0938\u093E\u0901\u0938 \u0932\u0947\u0902', breatheHold:'\u0930\u094B\u0915\u0947\u0902', breatheOut:'\u0938\u093E\u0901\u0938 \u091B\u094B\u0921\u093C\u0947\u0902',
+    levelUp:'\u0932\u0947\u0935\u0932 \u0905\u092A\u094D!', newLevel:'\u0906\u092A\u0928\u0947 \u0932\u0947\u0935\u0932', saved:'\u0938\u0947\u091F\u093F\u0902\u0917\u094D\u0938 \u0938\u0939\u0947!',
+    accessibility:'\u0938\u0941\u0932\u092D\u0924\u093E', emergency:'\u0906\u092A\u093E\u0924\u0915\u093E\u0932', awesome:'\u0936\u093E\u0928\u0926\u093E\u0930!',
+    privacyEnterPin:'\u092A\u093F\u0928 \u0926\u0930\u094D\u091C \u0915\u0930\u0928\u0947 \u0915\u0947 \u0932\u093F\u092F\u0947 \u092A\u093F\u0928 \u0926\u0930\u094D\u091C \u0915\u0930\u0947\u0902',
+    cancel:'\u0930\u0926\u094D\u0915 \u0915\u0930\u0947\u0902', back:'\u0935\u093E\u092A\u0838', onboardNext:'\u0905\u0917\u0932\u0947', onboardBack:'\u0935\u093E\u092A\u0838',
+    remindOthersToPlay:'\u092A\u0930\u093F\u0935\u093E\u0930 \u0915\u094B \u0917\u0947\u092E \u0916\u0947\u0932\u0928\u0947 \u0915\u094B \u092A\u094D\u0930\u094B\u0924\u094D\u0938\u093E\u0939\u093F\u0924 \u0915\u0930\u0947\u0902', sendMsg:'\u0938\u0902\u0926\u0947\u0936', dailyRecallTitle:'\u0926\u0948\u0928\u093F\u0915 \u092F\u093E\u0926', dailyRecallDesc:'\u0906\u091C \u0915\u094D\u092F\u093E \u0939\u0941\u0906 \u0915\u094B \u092F\u093E\u0926 \u0930\u0916\u0947\u0902', dailyRecallQ:'\u0906\u091C \u0938\u0941\u092C\u0939 \u0915\u0947 \u0928\u093E\u0938\u094D\u0924\u0947 \u0915\u094D\u092F\u093E \u0916\u093E\u092F\u093E?', recallCorrect:'\u0938\u0939\u0940!', recallTryAgain:'\u092C\u0939\u0941\u0924 \u0915\u094B\u0936\u093F\u0937!',
+    objectsToRecall:'\u0907\u0928 \u0935\u0938\u094D\u0924\u0941\u0913\u0902 \u0915\u094B \u092F\u093E\u0926 \u0930\u0916\u0947\u0902!', whatWasThere:'\u092F\u0939\u093E\u0901 \u0915\u094D\u092F\u093E \u0925\u093E?', correct:'\u0938\u0939\u0940!', wrong:'\u0928\u0939\u0940\u0902!',
+    attentionPrompt:'\u0905\u0932\u0917 \u0915\u093E \u092A\u0924\u093E \u0932\u0917\u093E\u090F\u0902!', attentionTarget:'\u0907\u0938\u092E\u0947\u0902 \u090f\u0915 \u0939\u0948',
+    noAchievements:'\u092A\u0942\u0930\u093E \u0915\u0930\u0915\u0930 \u0920\u0939\u0930\u093E\u0902!',
+    breathingTitle:'\u0938\u093E\u0901\u0938 \u0915\u0940 \u0905\u092D\u094D\u092F\u093E\u0938', startBreathe:'\u0936\u0941\u0930\u0942 \u0915\u0930\u0947\u0902', stopBreathe:'\u0930\u094B\u0915\u0947\u0902', breatheComplete:'\u0938\u0947\u0936\u0928 \u092A\u0942\u0930\u093E! \u092C\u0939\u0941\u0924 \u0935\u093E\u0939\u093E!',
+    sequenceLength:'\u0915\u094D\u0930\u092E \u0932\u0902\u092C\u093E\u0907', patternLen:'\u092A\u0948\u091F\u0930\u094D\u0928 \u0932\u0902\u092C\u093E', scoreLabel:'\u0938\u094D\u0915\u094B\u0930', movesLabel:'\u091A\u093E\u0932', matchAll:'\u0938\u092C \u092E\u0948\u091A \u092E\u093F\u0932 \u0917\u090F!', matchPrompt:'\u092A\u0948\u0930 \u0915\u093E\u0930\u094D\u0921 \u092B\u093F\u0930\u094D \u0915\u0930\u0947\u0902', playAgain:'\u092B\u093F\u0930 \u0916\u0947\u0932\u0947\u0902', noMsg:'\u0905\u092D\u0940 \u0915\u094B\u0908 \u0938\u0902\u0926\u0947\u0936 \u0928\u0939\u0940\u0902!', noTask:'\u0938\u092D \u0915\u093E\u0930\u094D\u092F \u092A\u0942\u0930\u0947 \u0939\u0948\u0902!', noNotification:'\u0915\u094B\u0908 \u0938\u0942\u091A\u0928\u093E \u0928\u0939\u0940\u0902', viewAllRoutine:'\u092A\u0942\u0930\u093E \u0926\u0948\u0928\u091A\u0930\u094D\u092F \u0926\u0947\u0916\u0947\u0902'
+  }
+};
+const LANGUAGES = [
+  { code: 'english', label: 'English', flag: '\u{1F1EC}\u{1F1E7}' },
+  { code: 'hindi', label: '\u0939\u093F\u0928\u094D\u0926\u0940', flag: '\u{1F1EE}\u{1F1F3}' },
+  { code: 'bengali', label: '\u09AC\u09BE\u0902\u09B2\u09BE', flag: '\u{1F1E7}\u{1F1E9}' },
+  { code: 'assamese', label: '\u0905\u0938\u092E\u0940\u09AF\u09BC\u09BE', flag: '\u{1F1E7}\u{1F1E9}' },
+  { code: 'manipuri', label: '\u092E\u0948\u0924\u0948\u09B2\u094B\u0928\u09CD', flag: '\u{1F1F3}\u{1F1F5}' },
+  { code: 'khasi', label: 'Khasi', flag: '\u{1F1E7}\u{1F1E9}' },
+  { code: 'mizo', label: 'Mizo', flag: '\u{1F1F2}\u{1F1F9}' },
+  { code: 'gujarati', label: '\u0997\u0941\u099C\u0930\u093E\u09A4\u0940', flag: '\u{1F1EE}\u{1F1F3}' }
+];
+const FACE_BOOK = ['\u{1F468}\u{200D}\u{1F4BB}','\u{1F469}\u{200D}\u{1F4BB}','\u{1F468}','\u{1F469}','\u{1F474}','\u{1F475}','\u{1F9D3}','\u{1F471}','\u{1F468}\u{200D}\u{1F3A8}','\u{1F469}\u{200D}\u{1F3A8}'];
+const NAME_DATA = [
+  { name: 'Anand', emoji: '\u{1F468}' }, { name: 'Sunita', emoji: '\u{1F469}' },
+  { name: 'Ramesh', emoji: '\u{1F474}' }, { name: 'Meena', emoji: '\u{1F475}' },
+  { name: 'Arjun', emoji: '\u{1F468}\u{200D}\u{1F4BB}' }, { name: 'Kavita', emoji: '\u{1F469}\u{200D}\u{1F4BB}' }
+];
+const PATTERNS_EASY = [
+  [[1,3],[5,7]], [[0,8],[2,6]], [[4],[0,8]], [[2,4],[6]], [[0,2,6,8]], [[3,5],[1,7]], [[0,1,2]], [[6,7,8]]
+];
+const PATTERNS_MED = [
+  [[0,2,8],[4]], [[1,3,5,7],[4]], [[0,2,6,8],[4]], [[1,5],[3,7],[4]], [[0,1],[7,8],[4]], [[2,3,5,6],[4]]
+];
+const PATTERNS_HARD = [
+  [[0,1,2,3],[5,6,7,8]], [[0,4,8],[2,4,6]], [[0,2,4,6,8],[1,3,5,7]], [[0,1,7,8],[2,6],[4]]
+];
+const DAILY_RECALL_QUESTIONS = [
+  { q: 'What did you have for breakfast this morning?', opts: ['Idli & Sambar','Paratha & Curd','Poha','Upma'], correct: 0 },
+  { q: 'Who did you speak to first today?', opts: ['Family member','Doctor','Neighbor','Friend'], correct: 0 },
+  { q: 'What game did you play last?', opts: ['Memory Match','Sequence Song','Pattern Flash','Name Recall'], correct: 0 },
+  { q: 'What is the weather like outside today?', opts: ['Sunny','Rainy','Cloudy','Windy'], correct: 0 }
+];
+const TIP_DATA = [
+  { emoji: '\u{1F9D8}', tip: 'Try 5 minutes of deep breathing to relax.' },
+  { emoji: '\u{1F3B5}', tip: 'Listen to your favorite old song.' },
+  { emoji: '\u{1F4D6}', tip: 'Read a chapter of your favorite book.' },
+  { emoji: '\u{1F91D}', tip: 'Call a friend or family member.' }
+];
+
+
+/* ===== PERSISTENCE ===== */
+function saveState() {
+  try { localStorage.setItem('ms_pro_state', JSON.stringify(S)); } catch(e){}
+}
+function loadState() {
+  try {
+    const raw = localStorage.getItem('ms_pro_state');
+    if (raw) {
+      const saved = JSON.parse(raw);
+      S = Object.assign(S, saved);
+    }
+  } catch(e){}
+}
+function t(key) {
+  const lang = T[S.lang] || T['english'];
+  return (lang && lang[key] !== undefined && lang[key] !== null) ? lang[key] : (T['english'][key] !== undefined ? T['english'][key] : key);
+}
+function freshDemoState() {
+  const s = JSON.parse(JSON.stringify(S));
+  s.notifications = DEMO.notifications.slice();
+  s.messages = DEMO.messages.slice();
+  s.achievements = DEMO.achievements.slice();
+  s.medications = DEMO.medications.map(m => ({...m}));
+  s.reminders = DEMO.reminders.slice();
+  s.routineItems = DEMO.routine.slice();
+  s.tasks = DEMO.tasks.map(m => ({...m}));
+  s.moodHistory = [
+    { date: 'Sep 1', mood: 4 }, { date: 'Sep 2', mood: 5 }, { date: 'Sep 3', mood: 3 },
+    { date: 'Sep 4', mood: 4 }, { date: 'Sep 5', mood: 5 }, { date: 'Sep 6', mood: 4 }, { date: 'Sep 7', mood: 5 }
+  ];
+  s.gamesPlayed = 14; s.gamesWon = 11; s.streak = 5; s.points = 1250; s.level = 4; s.breathSessions = 8;
+  return s;
+}
+
+/* ===== TRANSLATION / LANG ===== */
+function switchLang(code) {
+  S.lang = code;
+  document.body.className = document.body.className.replace(/lang-[a-z]+/g, '').trim();
+  if (code !== 'english') document.body.classList.add('lang-' + code);
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  const btns = document.querySelectorAll('#langTrack .lang-btn');
+  btns.forEach((b,i) => { if (LANGUAGES[i] && LANGUAGES[i].code === code) b.classList.add('active'); });
+  document.title = code === 'english' ? 'MindSaathi Pro' : 'MindSaathi';
+  applyTranslations();
+  if (S.loggedIn) { refreshViews(); saveState(); }
+}
+function applyTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const val = t(key);
+    if (val !== key) el.textContent = val;
+  });
+  if (S.loggedIn) {
+    const titleEl = document.getElementById('pageTitle');
+    const names = { dashboard:t('dashboard'),games:t('games'),wellness:t('wellness'),tasks:t('tasks'),routine:t('routine'),family:t('family'),multiplayer:t('multiplayer'),notifications:t('notifications'),achievements:t('achievements'),reminders:t('reminders'),settings:t('settings') };
+    if (names[S.currentView]) titleEl.textContent = names[S.currentView];
+    document.getElementById('pageTitle').dataset.i18n = S.currentView === 'caregiver' ? 'dashboard' : S.currentView;
+  }
+}
+function scrollLang(dir) {
+  const track = document.getElementById('langTrack');
+  const amount = track.clientWidth * 0.8;
+  track.scrollBy({ left: dir * amount, behavior: 'smooth' });
+}
+
+/* ===== TOAST & HELPERS ===== */
+let toastTimer;
+function showToast(msg, type) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.className = 'toast show' + (type ? ' ' + type : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.className = 'toast', 2600);
+}
+function confetti() {
+  const colors = ['#2E6E62','#D9A441','#C24545','#4A6FA5','#3F8F5F','#C98A1F','#6C3FA5'];
+  for (let i = 0; i < 24; i++) {
+    const p = document.createElement('div');
+    p.className = 'confetti-piece';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    p.style.animationDuration = (2 + Math.random()*2.5) + 's';
+    p.style.animationDelay = (Math.random()*0.5) + 's';
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 5000);
+  }
+}
+function greeting() {
+  const h = new Date().getHours();
+  if (h < 12) return t('goodMorning');
+  if (h < 17) return t('goodAfternoon');
+  return t('goodEvening');
+}
+function addPoints(n) {
+  S.points += n;
+  const newLevel = Math.floor(Math.sqrt(S.points / 50)) + 1;
+  if (newLevel > S.level) { S.level = newLevel; setTimeout(() => { showToast(t('levelUp') + ' ' + S.level + '!'); confetti(); }, 500); }
+}
+function checkAchievements(context) {
+  const list = S.achievements || [];
+  list.forEach(a => {
+    if (!a.unlocked) {
+      let unlock = false;
+      switch (a.id) {
+        case 'a1': unlock = S.gamesPlayed >= 1; break;
+        case 'a2': unlock = S.streak >= 3; break;
+        case 'a3': unlock = S.level >= 5; break;
+        case 'a4': unlock = S.gamesPlayed >= 10; break;
+        case 'a5': unlock = S.breathSessions >= 5; break;
+        default: unlock = false;
+      }
+      if (unlock) {
+        a.unlocked = true;
+        document.getElementById('achieveIcon').textContent = a.icon;
+        document.getElementById('achieveTitle').textContent = a.title;
+        document.getElementById('achieveDesc').textContent = a.desc;
+        document.getElementById('achievementModal').classList.add('active');
+        confetti();
+      }
+    }
+  });
+  saveState();
+}
+
+/* ===== VIEW NAVIGATION ===== */
+function showView(view) {
+  S.currentView = view;
+  const titleMap = { dashboard:'dashboard', games:'games', wellness:'wellness', tasks:'tasks', routine:'routine', family:'family', multiplayer:'multiplayer', notifications:'notifications', achievements:'achievements', reminders:'reminders', settings:'settings', caregiver:'dashboard', privacy:'settings' };
+  document.getElementById('pageTitle').setAttribute('data-i18n', titleMap[view] || 'dashboard');
+  document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+  document.querySelectorAll('.bottom-nav-item').forEach(n => n.classList.remove('active'));
+  const activeMap = { caregiver:'dashboard', privacy:'settings' };
+  const navKey = activeMap[view] || view;
+  const activeNav = document.querySelectorAll('.nav-item[data-view="' + navKey + '"]');
+  const activeBottom = document.querySelectorAll('.bottom-nav-item[data-view="' + navKey + '"]');
+  activeNav.forEach(n => n.classList.add('active'));
+  activeBottom.forEach(n => n.classList.add('active'));
+  if (window.matchMedia && window.matchMedia('(max-width:768px)').matches) {
+    document.getElementById('sidebar').classList.remove('mobile-open');
+  }
+  renderView(view);
+  applyTranslations();
+}
+function renderView(view) {
+  if (view === 'dashboard') renderDashboard();
+  else if (view === 'caregiver') renderCaregiver();
+  else if (view === 'games') renderGames();
+  else if (view === 'wellness') renderWellness();
+  else if (view === 'tasks') renderTasks();
+  else if (view === 'routine') renderRoutine();
+  else if (view === 'family') renderFamily();
+  else if (view === 'multiplayer') renderMultiplayer();
+  else if (view === 'notifications') renderNotifications();
+  else if (view === 'achievements') renderAchievements();
+  else if (view === 'reminders') renderReminders();
+  else if (view === 'settings') renderSettings();
+  else if (view === 'privacy') renderPrivacy();
+}
+function refreshViews() {
+  if (S.loggedIn) renderView(S.currentView);
+}
+function toggleMobileSidebar() {
+  document.getElementById('sidebar').classList.toggle('mobile-open');
+}
+
+/* ===== SIDEBAR PROFILE BAR ===== */
+function updateSidebar() {
+  const el = document.getElementById('sidebarProfile');
+  const name = S.userName || (S.role === 'elder' ? 'Elder' : 'Caregiver');
+  const avatar = S.avatar || (S.role === 'elder' ? '\u{1F9D3}' : '\u{1F468}\u200D\u{2695}\u{FE0F}');
+  const roleText = S.role === 'elder' ? 'Elder' : 'Caregiver';
+  el.innerHTML = '<div class="avatar">' + avatar + '</div><div style="min-width:0"><div style="font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + name + '</div><div style="font-size:12px;color:rgba(255,255,255,.6)">' + roleText + (S.difficultyLevel ? ' \u2022 ' + levelName() : '') + '</div></div>';
+}
+function levelName() {
+  return 'Level ' + S.level;
+}
+
+/* ===== INIT ===== */
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+
+/* ===== DASHBOARD ===== */
+function renderDashboard() {
+  const v = document.getElementById('view-dashboard');
+  if (S.role === 'caregiver') return renderCaregiver();
+  const upright = !S.moodHistory.length || true;
+  const recentMood = S.moodHistory && S.moodHistory.length ? S.moodHistory[S.moodHistory.length-1].mood : 5;
+  const moodEmoji = ['','\u{1F622}','\u{1F641}','\u{1F610}','\u{1F642}','\u{1F600}'][recentMood] || '\u{1F600}';
+  v.innerHTML = `
+    <div class="hero-banner">
+      <div class="hero-text">
+        <h2>${greeting()}, ${esc(S.userName || '')}!</h2>
+        <p>${t('yourProgress')}: ${S.gamesPlayed} ${t('games')} \u2022 ${S.gamesWon} ${t('gamesWon').toLowerCase()} \u2022 ${S.streak}\u{1F525}</p>
+        <div class="difficulty-indicator" style="margin-top:12px;max-width:280px">
+          <div class="difficulty-label">${t('level')} ${S.level}</div>
+          <div class="difficulty-bar"><div class="difficulty-fill" style="width:${Math.min(100,(S.points%50)/50*100)}%"></div></div>
+        </div>
+      </div>
+      <div class="hero-illustration">${moodEmoji}</div>
+    </div>
+
+    <div class="quick-actions-grid">
+      <button class="quick-action-btn" onclick="openGame('memory')"><span class="qa-icon">\u{1F0CF}</span><span class="qa-label">${t('playMemory')}</span></button>
+      <button class="quick-action-btn" onclick="openGame('sequence')"><span class="qa-icon">\u{1F3B6}</span><span class="qa-label">${t('playSequence')}</span></button>
+      <button class="quick-action-btn" onclick="openGame('objectRecall')"><span class="qa-icon">\u{1F4E6}</span><span class="qa-label">${t('playObject')}</span></button>
+      <button class="quick-action-btn" onclick="openGame('attention')"><span class="qa-icon">\u{1F441}</span><span class="qa-label">${t('playAttention')}</span></button>
+      <button class="quick-action-btn" onclick="startBreathing()"><span class="qa-icon">\u{1F32C}\u{FE0F}</span><span class="qa-label">${t('takeBreath')}</span></button>
+      <button class="quick-action-btn" onclick="showView('tasks')"><span class="qa-icon">\u{2705}</span><span class="qa-label">${t('viewTasks')}</span></button>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="card-header"><div><div class="card-title">${t('todaysJourney')}</div><div class="card-subtitle">${S.streak} \u{1F525} ${t('streak').toLowerCase()}</div></div><button class="btn btn-ghost btn-sm" onclick="showView('routine')">${t('viewAllRoutine')}</button></div>
+        <div class="timeline">${renderTimelineItems(3)}</div>
+      </div>
+      <div class="card" style="text-align:center">
+        <div class="card-title" style="text-align:left;margin-bottom:16px">${t('wellbeingCheck')}</div>
+        <div style="font-size:18px;font-weight:700;margin-bottom:12px">${t('howAreYou')}?</div>
+        <div class="emotion-grid">
+          <button class="emotion" style="font-size:30px" onclick="logMood(5)" title="Great">\u{1F600}</button>
+          <button class="emotion" style="font-size:30px" onclick="logMood(4)" title="Good">\u{1F642}</button>
+          <button class="emotion" style="font-size:30px" onclick="logMood(3)" title="Okay">\u{1F610}</button>
+          <button class="emotion" style="font-size:30px" onclick="logMood(2)" title="Low">\u{1F641}</button>
+          <button class="emotion" style="font-size:30px" onclick="logMood(1)" title="Bad">\u{1F622}</button>
+        </div>
+        <div class="ai-insight" style="text-align:left">
+          <div class="ai-insight-title">\u{1F916} ${t('buddyTitle')}</div>
+          <div class="ai-insight-text" id="dashInsight">${t('todaysRoutineTip') || 'Keep up the great routine. Today is a good day for a memory game and a short walk.'}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-3" id="dashStats">
+      <div class="stat-card"><div class="stat-value">${S.gamesPlayed}</div><div class="stat-label">${t('gamesPlayed')}</div></div>
+      <div class="stat-card"><div class="stat-value">${S.gamesWon}</div><div class="stat-label">${t('gamesWon')}</div></div>
+      <div class="stat-card"><div class="stat-value">${S.streak} \u{1F525}</div><div class="stat-label">${t('streak')}</div></div>
+    </div>
+  `;
+  renderBuddy();
+  applyTranslations();
+}
+function renderTimelineItems(limit) {
+  if (!S.routineItems || !S.routineItems.length) S.routineItems = DEMO.routine.slice();
+  const items = S.routineItems.slice(0, limit || S.routineItems.length);
+  return items.map(it => `
+    <div class="timeline-item ${it.status}" onclick="showView('routine')">
+      <div class="timeline-dot"></div>
+      <div class="timeline-time">${it.time}</div>
+      <div class="timeline-label"><span class="timeline-emoji">${it.emoji}</span>${it.label}</div>
+    </div>`).join('');
+}
+
+/* ===== GAMES ===== */
+const GAME_META = [
+  { key:'memory', icon:'\u{1F0CF}', name:'Memory Match' },
+  { key:'sequence', icon:'\u{1F3B6}', name:'Sequence Song' },
+  { key:'pattern', icon:'\u{1F4A1}', name:'Pattern Flash' },
+  { key:'naming', icon:'\u{1F464}', name:'Name Recall' },
+  { key:'objectRecall', icon:'\u{1F4E6}', name:'Object Recall' },
+  { key:'attention', icon:'\u{1F441}', name:'Attention Focus' },
+  { key:'dailyRecall', icon:'\u{1F4C5}', name:'Daily Recall' }
+];
+function renderGames() {
+  const v = document.getElementById('view-games');
+  const grid = GAME_META.map(g => {
+    const diff = S.difficulty[g.key] || 3;
+    return `<div class="card" style="cursor:pointer" onclick="openGame('${g.key}')">
+      <div style="font-size:44px;margin-bottom:8px">${g.icon}</div>
+      <div class="card-title">${g.name}</div>
+      <div class="card-subtitle" style="margin-top:4px">${g.desc || ''}</div>
+      <div class="difficulty-indicator">
+        <div class="difficulty-label">${t('level')} ${diff}</div>
+        <div class="difficulty-bar"><div class="difficulty-fill" style="width:${Math.min(100,diff*20)}%"></div></div>
+      </div>
+      ${g.key==='dailyRecall' ? '' : `<button class="btn btn-primary btn-sm" style="margin-top:14px;width:100%">${t('playAgain')||'Play'}</button>`}
+    </div>`;
+  }).join('');
+  const elderTip = S.role === 'elder' ? `<div class="ai-insight" style="margin-top:20px"><div class="ai-insight-title">\u{1F916} ${t('buddyTitle')}</div><div class="ai-insight-text">${t('gamesTip') || 'Games adapt to your progress. Start with Memory Match or try something new today!'}</div></div>` : '';
+  v.innerHTML = `<div class="grid grid-3">${grid}</div>${elderTip}`;
+  applyTranslations();
+}
+
+/* ===== WELLNESS ===== */
+function renderWellness() {
+  const v = document.getElementById('view-wellness');
+  const meds = (S.medications || []).map(m => `<div class="med-item"><button class="med-check ${m.taken?'taken':''}" onclick="toggleMed('${m.name}')">${m.taken?'\u2713':''}</button><div><div class="med-name">${m.name}</div><div class="med-time">${m.time}</div></div></div>`).join('');
+  const moodHtml = (S.moodHistory || []).slice(-7).map(m => {
+    const h = m.mood*22;
+    return `<div class="bar-col"><div class="bar-fill" style="height:${h}px"></div><div class="bar-label">${m.date}</div></div>`;
+  }).join('');
+  v.innerHTML = `
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="card-title">${t('moodHistory')||'Mood History'}</div>
+        <div class="bar-chart">${moodHtml}</div>
+      </div>
+      <div class="card">
+        <div class="card-title">${t('medReminders')||'Medication Reminders'}</div>
+        <div style="margin-top:12px">${meds || '<div class="empty-state"><div class="empty-text">'+t('noMedMeds')+ '</div></div>'}</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:24px">
+      <div class="card-title">${t('breathingTitle')}</div>
+      <p style="color:var(--ink-soft);margin:10px 0 16px">${S.breathSessions} ${t('sessionsCompleted')||'sessions completed'}</p>
+      <button class="btn btn-primary" onclick="startBreathing()">${t('startBreathe')}</button>
+    </div>`;
+  applyTranslations();
+}
+function toggleMed(name) {
+  const m = (S.medications||[]).find(x=>x.name===name);
+  if (m) { m.taken = !m.taken; saveState(); renderWellness(); }
+}
+
+/* ===== TASKS ===== */
+function renderTasks() {
+  const v = document.getElementById('view-tasks');
+  const tasks = S.tasks || DEMO.tasks.slice();
+  const done = tasks.filter(x=>x.done).length;
+  const list = tasks.map(x => `<div class="task-item ${x.done?'done':''}" onclick="toggleTask(${x.id})"><div class="task-check">${x.done?'\u2713':''}</div><div class="task-name">${x.name}</div><div class="task-pts">+${x.pts}</div></div>`).join('');
+  v.innerHTML = `
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">${t('tasks')}</div><div class="card-subtitle">${done}/${tasks.length} ${t('tasksCompleted')}</div></div><div class="task-count">${done}<span>/${tasks.length}</span></div></div>
+      ${list || '<div class="empty-state"><div class="empty-icon">\u{1F389}</div><div class="empty-text">'+ t('allDone') +'</div></div>'}
+    </div>`;
+  applyTranslations();
+}
+function toggleTask(id) {
+  const x = (S.tasks||[]).find(m=>m.id===id);
+  if (x) { if(!x.done) addPoints(x.pts); x.done = !x.done; saveState(); renderTasks(); }
+}
+
+/* ===== ROUTINE ===== */
+function renderRoutine() {
+  const v = document.getElementById('view-routine');
+  const items = S.routineItems || DEMO.routine.slice();
+  const list = items.map((it,i)=>`
+    <div class="timeline-item ${it.status}" onclick="markRoutine(${i})">
+      <div class="timeline-dot"></div>
+      <div class="timeline-time">${it.time}</div>
+      <div class="timeline-label"><span class="timeline-emoji">${it.emoji}</span>${it.label}</div>
+    </div>`).join('');
+  v.innerHTML = `<div class="card"><div class="card-header"><div><div class="card-title">${t('dailyRoutine')}</div><div class="card-subtitle">${t('todaysJourney')}</div></div></div><div class="timeline">${list}</div></div>`;
+  applyTranslations();
+}
+function markRoutine(i) {
+  const it = S.routineItems[i];
+  if (it.status === 'upcoming') { it.status = 'completed'; addPoints(5); showToast(t('taskDone')||'Nice! +5 points'); }
+  saveState(); renderRoutine();
+}
+
+
+/* ===== FAMILY ===== */
+function renderFamily() {
+  const v = document.getElementById('view-family');
+  const isCaregiver = S.role === 'caregiver';
+  const msgs = S.messages || [];
+  const msgHtml = msgs.length ? msgs.map(m => `
+    <div style="padding:16px;border-bottom:1px solid var(--border)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+        <div style="font-weight:700;font-size:15px">${esc(m.from)} <span style="color:var(--ink-faint);font-weight:400;font-size:12px">\u2022 ${m.time}</span></div>
+      </div>
+      <div style="margin-top:6px;font-size:15px;color:var(--ink)">${m.text}</div>
+      <div class="reaction-row" id="react-${esc(m.from)}">${renderReactions(m)}</div>
+    </div>`).join('')
+    : '<div class="empty-state"><div class="empty-icon">\u{1F4AC}</div><div class="empty-text">'+t('noMsg')+'</div></div>';
+  const encourages = (t('encourageMessages') && t('encourageMessages').length)
+    ? t('encourageMessages').map((e,i)=>`<div class="encourage-card" onclick="sendEncouragement(${i})"><div class="enc-icon">${e.icon}</div>${e.text}</div>`).join('')
+    : '';
+  v.innerHTML = `
+    ${universalCaregiverBanner(isCaregiver)}
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="card-title">${t('familyMessages')||'Messages'}</div>
+        <div style="margin-top:12px">${msgHtml}</div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:20px">
+          <div class="card-title" style="margin-bottom:12px">${t('sendEncouragement')}</div>
+          <div class="encourage-grid">${encourages || ''}</div>
+        </div>
+        <div class="card">
+          <div class="card-title" style="margin-bottom:14px">${t('sendMessage')||'Send a Message'}</div>
+          <textarea id="familyMsgInput" rows="3" style="width:100%;padding:12px;border:2px solid var(--border);border-radius:10px;font-family:inherit;font-size:15px" placeholder="${t('typeMessage')||'Type a message...'}"></textarea>
+          <button class="btn btn-primary btn-sm" style="margin-top:12px;width:100%" onclick="sendMessage()">${t('sendMsg')||'Send'}</button>
+        </div>
+      </div>
+    </div>`;
+  applyTranslations();
+}
+function universalCaregiverBanner(isCg) {
+  if (!isCg) return '';
+  return `<div class="ai-insight" style="margin-bottom:20px"><div class="ai-insight-title">\u{1F916} ${t('caregiverInsight')||'Caregiver Insight'}</div><div class="ai-insight-text">${t('cgInsightText')||'Ratna has been engaging well. She completed 3 sessions this week. Postpone games if she seems tired.'}</div></div>`;
+}
+function renderReactions(m) {
+  let html = '';
+  const rmap = m.reactions || {};
+  Object.keys(rmap).forEach(e => {
+    html += `<button class="reaction-btn" onclick="reactTo('${esc(m.from)}','${e}')"><span>${e}</span><span class="count">${rmap[e]}</span></button>`;
+  });
+  const defaults = ['\u{1F44D}','\u{2764}\u{FE0F}','\u{1F389}','\u{1F60A}'];
+  defaults.forEach(e => { if (!rmap[e]) html += `<button class="reaction-btn" onclick="reactTo('${esc(m.from)}','${e}')"><span>${e}</span></button>`; });
+  return html;
+}
+function reactTo(from, emoji) {
+  const m = (S.messages||[]).find(x=>x.from===from);
+  if (m) { if(!m.reactions)m.reactions={}; m.reactions[emoji]=(m.reactions[emoji]||0)+1; saveState(); renderFamily(); }
+}
+function sendMessage() {
+  const input = document.getElementById('familyMsgInput');
+  const text = input.value.trim();
+  if (!text) return;
+  if (!S.messages) S.messages = [];
+  S.messages.unshift({ from: S.userName || 'You', text: text, time: 'Just now', reactions: {} });
+  input.value = '';
+  saveState(); renderFamily(); showToast(t('msgSent')||'Message sent!');
+}
+function sendEncouragement(i) {
+  const list = (t('encourageMessages')||[]);
+  if (list[i]) {
+    if (!S.messages) S.messages = [];
+    S.messages.unshift({ from: S.userName || 'Family', text: list[i].text + ' ' + list[i].icon, time: 'Just now', reactions: {} });
+    saveState(); renderFamily(); showToast(t('msgSent')||'Sent!');
+  }
+  if (S.role === 'caregiver' && i === 0) checkAchievements('social');
+}
+
+/* ===== MULTIPLAYER ===== */
+function renderMultiplayer() {
+  const v = document.getElementById('view-multiplayer');
+  const lb = [
+    { name:'Me', score: S.points, you:true }, { name:'Priya', score: 900 },
+    { name:'Rahul', score: 780 }, { name:'Anand', score: 620 }
+  ];
+  lb.sort((a,b)=>b.score-a.score);
+  const medals = ['gold','silver','bronze'];
+  const rows = lb.map((r,i)=>`<div class="leaderboard-row"><div class="rank ${medals[i]||''}">${i+1}</div><div>${r.you?('<strong>'+esc(r.name)+'</strong> (You)'):esc(r.name)}</div><div class="leaderboard-score">${r.score}</div></div>`).join('');
+  v.innerHTML = `
+    ${universalCaregiverBanner(S.role==='caregiver')}
+    <div class="grid grid-2">
+      <div class="card" style="text-align:center">
+        <div style="font-size:56px;margin-bottom:12px">\u{1F3AD}</div>
+        <div class="card-title" style="text-align:center">${t('playTogether')}</div>
+        <p style="color:var(--ink-soft);margin:10px 0 20px">${t('multiplayerSub')||'Compete with family or play together'}</p>
+        <button class="btn btn-primary" onclick="showToast(t('matchComb')||'Finding a match...')">${t('findMatch')}</button>
+      </div>
+      <div class="card">
+        <div class="card-title">${t('leaderboard')}</div>
+        <div style="margin-top:8px">${rows}</div>
+      </div>
+    </div>`;
+  applyTranslations();
+}
+
+/* ===== NOTIFICATIONS ===== */
+function renderNotifications() {
+  const v = document.getElementById('view-notifications');
+  const notifs = S.notifications || [];
+  const unread = notifs.filter(n=>!n.read).length;
+  document.getElementById('notifBadge').style.display = unread ? 'inline-block' : 'none';
+  document.getElementById('notifBadge').textContent = unread;
+  const items = notifs.length ? notifs.map(n=>`
+    <div class="notif-item ${n.read?'':'unread'}" onclick="markNotifRead(${n.id})">
+      <div class="notif-icon">${n.icon}</div>
+      <div style="flex:1"><div class="notif-title">${n.title}</div><div class="notif-text">${n.text}</div><div class="notif-time">${n.time}</div></div>
+      ${n.read?'':'<div class="notif-dot"></div>'}
+    </div>`).join('')
+    : '<div class="empty-state"><div class="empty-icon">\u{1F514}</div><div class="empty-text">'+t('noNotifications')+'</div></div>';
+  v.innerHTML = `<div class="card"><div class="card-title" style="margin-bottom:16px">${t('notifications')}</div>${items}</div>`;
+  applyTranslations();
+}
+function markNotifRead(id) {
+  const n = (S.notifications||[]).find(x=>x.id===id);
+  if (n) { n.read = true; saveState(); renderNotifications(); }
+}
+
+/* ===== ACHIEVEMENTS ===== */
+function renderAchievements() {
+  const v = document.getElementById('view-achievements');
+  const ach = S.achievements || DEMO.achievements.slice();
+  const unlocked = ach.filter(a=>a.unlocked).length;
+  const cards = ach.map(a=>`
+    <div class="card" style="text-align:center;padding:20px;${a.unlocked?'':'opacity:.4'}">
+      <div style="font-size:40px;margin-bottom:8px">${a.unlocked?a.icon:'\u{1F512}'}</div>
+      <div style="font-weight:700;font-size:15px">${a.title}</div>
+      <div style="font-size:13px;color:var(--ink-soft);margin-top:4px">${a.desc}</div>
+      ${a.unlocked?'<span class="badge badge-success" style="margin-top:10px">'+ (t('unlocked')||'Unlocked') +'</span>':''}
+    </div>`).join('');
+  v.innerHTML = `
+    <div class="stat-card" style="margin-bottom:24px;background:linear-gradient(135deg,var(--accent-light),#FFF4DD)">
+      <div class="stat-value">${unlocked}/${ach.length}</div><div class="stat-label">${t('achievements')}</div>
+    </div>
+    <div class="grid grid-3">${cards}</div>`;
+  applyTranslations();
+}
+
+/* ===== REMINDERS ===== */
+function renderReminders() {
+  const v = document.getElementById('view-reminders');
+  const rems = S.reminders || DEMO.reminders.slice();
+  const list = rems.map((r,i)=>`
+    <div class="reminder-item">
+      <div class="reminder-icon">${r.icon}</div>
+      <div class="reminder-info"><div class="reminder-name">${r.name}</div><div class="reminder-meta">${r.meta}</div></div>
+      <div class="reminder-actions">
+        <button class="done-btn" onclick="markReminderDone(${i})">${r.done?'\u2713':'Mark Done'}</button>
+        <button class="skip-btn" onclick="showToast(t('snoozed')||'Reminder snoozed')">Snooze</button>
+      </div>
+    </div>`).join('');
+  v.innerHTML = `<div class="card"><div class="card-title" style="margin-bottom:16px">${t('remindersTitle')}</div>${list || '<div class="empty-state"><div class="empty-text">'+t('noReminders')+'</div></div>'}</div>`;
+  applyTranslations();
+}
+function markReminderDone(i) {
+  const r = S.reminders[i];
+  if (r) { r.done = !r.done; if (r.done) addPoints(5); saveState(); renderReminders(); }
+}
+
+/* ===== SETTINGS ===== */
+function renderSettings() {
+  const v = document.getElementById('view-settings');
+  v.innerHTML = `
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="card-title" style="margin-bottom:16px">${t('profileSettings')}</div>
+        <div class="settings-row">
+          <div><div class="settings-row-label">${t('yourName')}</div><div class="settings-row-sub" id="settingsName">${esc(S.userName||'')}</div></div>
+          <button class="btn btn-ghost btn-sm" onclick="editProfile()">${t('editProfile')}</button>
+        </div>
+        <div class="settings-row">
+          <div><div class="settings-row-label">${t('selectRole')}</div><div class="settings-row-sub">${S.role==='elder'?t('roleElder'):t('roleCaregiver')}</div></div>
+        </div>
+        <div class="settings-row">
+          <div><div class="settings-row-label">${t('preferredLanguage')||'Preferred Language'}</div><div class="settings-row-sub">${t('langPref')||'Change from the top of any screen'}</div></div>
+        </div>
+        <div class="settings-row">
+          <div><div class="settings-row-label">${t('accessibility')}</div><div class="settings-row-sub">${t('accessDesc')||'Text size, contrast & more'}</div></div>
+          <button class="btn btn-ghost btn-sm" onclick="openAccessibility()">${t('accessibility')}</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="margin-bottom:16px">${t('privacySettings')}</div>
+        <div class="settings-row">
+          <div><div class="settings-row-label">${t('privacyCenter')}</div><div class="settings-row-sub">${t('privacyDesc')}</div></div>
+          <button class="btn btn-primary btn-sm" onclick="requestPrivacyPin()">${t('accessPrivacyCenter')}</button>
+        </div>
+        <div class="settings-row">
+          <div><div class="settings-row-label">${t('exportData')}</div><div class="settings-row-sub">${t('exportDesc')||'Download a copy of your data'}</div></div>
+          <button class="btn btn-ghost btn-sm" onclick="exportData()">${t('exportData')}</button>
+        </div>
+        <div class="settings-row">
+          <div><div class="settings-row-label" style="color:var(--error)">${t('deleteData')}</div><div class="settings-row-sub" style="color:var(--error)">${t('deleteDesc')||'This removes all your data permanently'}</div></div>
+          <button class="btn btn-danger btn-sm" onclick="deleteData()">${t('deleteData')}</button>
+        </div>
+        <div class="settings-row" style="border-bottom:none;margin-top:10px">
+          <button class="btn btn-ghost btn-sm" onclick="startDemoMode()">${t('demoMode')||'Demo Mode'}</button>
+          <button class="btn btn-ghost btn-sm" onclick="logout()">${t('logout')||'Logout'}</button>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:24px">
+      <div class="card-title" style="margin-bottom:16px">${t('privacyCenter')}</div>
+      <div class="privacy-consent-row">
+        <div class="privacy-consent-label">${t('consentTracking')}</div>
+        <button class="toggle ${S.privacyConsent.tracking?'on':''}" onclick="toggleConsent('tracking')"></button>
+      </div>
+      <div class="privacy-consent-row">
+        <div class="privacy-consent-label">${t('consentFamily')}</div>
+        <button class="toggle ${S.privacyConsent.family?'on':''}" onclick="toggleConsent('family')"></button>
+      </div>
+      <div class="privacy-consent-row">
+        <div class="privacy-consent-label">${t('consentReminders')}</div>
+        <button class="toggle ${S.privacyConsent.reminders?'on':''}" onclick="toggleConsent('reminders')"></button>
+      </div>
+    </div>`;
+  applyTranslations();
+}
+function toggleConsent(key) {
+  S.privacyConsent[key] = !S.privacyConsent[key];
+  saveState(); showToast(t('saved')); renderSettings();
+}
+function toggleConsentRow(key) { toggleConsent(key); }
+
+/* ===== PRIVACY ===== */
+function renderPrivacy() {
+  const v = document.getElementById('view-privacy');
+  v.innerHTML = '<div class="card"><div class="card-title">'+t('privacyCenter')+'</div><p style="color:var(--ink-soft);margin:12px 0">'+t('privacyDesc')+'</p></div>';
+  applyTranslations();
+}
+function requestPrivacyPin() {
+  document.getElementById('privacyPinModal').classList.add('active');
+  S.privacyPinStep = 0; S.privacyPinBuf = '';
+  updatePrivacyPinDots();
+  document.getElementById('privacyPinError').textContent = '';
+}
+function closePrivacyPin() { document.getElementById('privacyPinModal').classList.remove('active'); }
+function updatePrivacyPinDots() {
+  const dots = document.querySelectorAll('#privacyPinDots .privacy-pin-dot');
+  dots.forEach((d,i)=>{ d.className = 'privacy-pin-dot' + (i<S.privacyPinBuf.length?' filled':''); });
+}
+function privacyPinPress(n) {
+  if (S.privacyPinBuf.length >= 4) return;
+  S.privacyPinBuf += n;
+  updatePrivacyPinDots();
+  if (S.privacyPinBuf.length === 4) {
+    if (S.privacyPinBuf === PIN || S.privacyPinBuf === '1234') {
+      closePrivacyPin();
+      showView('privacy');
+      showToast(t('privacyUnlocked')||'Privacy center unlocked');
+    } else {
+      document.getElementById('privacyPinError').textContent = t('wrongPin')||'Incorrect PIN, try again';
+      S.privacyPinBuf = ''; updatePrivacyPinDots(); setTimeout(()=>document.getElementById('privacyPinError').textContent='', 1600);
+    }
+  }
+}
+function exportData() {
+  const data = JSON.stringify({ user: S.userName, role: S.role, achievements: S.achievements, points: S.points, moodHistory: S.moodHistory }, null, 2);
+  const blob = new Blob([data], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = 'mindsaathi-export.json'; a.click();
+  URL.revokeObjectURL(a.href);
+  showToast(t('exported')||'Data exported!');
+}
+function deleteData() {
+  if (confirm(t('confirmDelete')||'Delete all data permanently? This cannot be undone.')) {
+    localStorage.clear(); location.reload();
+  }
+}
+function logout() {
+  S.loggedIn = false;
+  document.getElementById('appShell').style.display = 'none';
+  document.getElementById('bottomNav').style.display = 'none';
+  document.getElementById('loginScreen').classList.remove('hidden');
+  showLoginStep('pick');
+  refreshProfilePicker();
+}
+
+
+/* ===== CAREGIVER DASHBOARD ===== */
+function renderCaregiver() {
+  const v = document.getElementById('view-caregiver');
+  const lb = [
+    { name: S.userName || 'Caregiver', score: S.points, you:true }, { name:'Ratna Devi', score: 1250 },
+    { name:'Arjun', score: 980 }, { name:'Meena', score: 760 }
+  ];
+  lb.sort((a,b)=>b.score-a.score);
+  const medals = ['gold','silver','bronze'];
+  const rows = lb.map((r,i)=>`<div class="leaderboard-row"><div class="rank ${medals[i]||''}">${i+1}</div><div>${r.you?('<strong>'+esc(r.name)+'</strong> (You)'):esc(r.name)}</div><div class="leaderboard-score">${r.score}</div></div>`).join('');
+  v.innerHTML = `
+    <div class="hero-banner">
+      <div class="hero-text">
+        <h2>${t('caregiverDashboard')||'Caregiver Dashboard'}</h2>
+        <p>${t('cgOverview')||'Here is how your loved ones are doing'}</p>
+      </div>
+      <div class="hero-illustration">\u{1F468}\u200D\u{2695}\u{FE0F}</div>
+    </div>
+    <div class="ai-insight">
+      <div class="ai-insight-title">\u{1F916} ${t('aiInsightTitle')||'AI Insights'}</div>
+      <div class="ai-insight-text">${t('cgInsightMain')||'Ratna has maintained a 5-day streak. Her memory scores improved 12% this week. Encourage an afternoon walk and a memory game today.'}</div>
+    </div>
+    <div class="grid grid-3" style="margin-bottom:24px">
+      <div class="stat-card"><div class="stat-value">14</div><div class="stat-label">${t('gamesPlayed')}</div><div class="stat-change">\u2191 20%</div></div>
+      <div class="stat-card"><div class="stat-value">78%</div><div class="stat-label">${t('completion')||'Completion Rate'}</div></div>
+      <div class="stat-card"><div class="stat-value">5\u{1F525}</div><div class="stat-label">${t('streak')}</div></div>
+    </div>
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="card-title" style="margin-bottom:16px">${t('caregiverView')||'Elder Activity'}</div>
+        <div class="elder-today-status">
+          <div class="elder-today-item"><span class="status-icon">\u{1F3B5}</span>Completed Morning Session</div>
+          <div class="elder-today-item"><span class="status-icon">\u{2705}</span>Finished 2 Tasks</div>
+          <div class="elder-today-item"><span class="status-icon">\u{2764}\u{FE0F}</span>Feeling Good Today</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">${t('leaderboard')}</div>
+        <div style="margin-top:8px">${rows}</div>
+      </div>
+    </div>
+    <div class="grid grid-2" style="margin-top:24px">
+      <div class="card">
+        <div class="card-title" style="margin-bottom:16px">${t('sendEncouragement')}</div>
+        <div class="encourage-grid">${(t('encourageMessages')||[]).map((e,i)=>`<div class="encourage-card" onclick="sendEncouragement(${i})"><div class="enc-icon">${e.icon}</div>${e.text}</div>`).join('')}</div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="margin-bottom:16px">${t('wellbeingCheck')}</div>
+        <div class="bar-chart">${(S.moodHistory||[]).slice(-7).map(m=>`<div class="bar-col"><div class="bar-fill" style="height:${m.mood*22}px"></div><div class="bar-label">${m.date}</div></div>`).join('')}</div>
+      </div>
+    </div>`;
+  applyTranslations();
+}
+
+/* ===== BREATHING ===== */
+let breatheTimer = null, breatheCycle = 0, breatheRunning = false, breatheGuide = 0;
+const BREATH_GUIDE = [
+  { label: 'In', secs: 4 }, { label: 'Hold', secs: 2 }, { label: 'Out', secs: 4 }
+];
+function startBreathing() {
+  document.getElementById('gameModalTitle').textContent = t('breathingTitle');
+  S.breathSessions = (S.breathSessions||0);
+  breatheCycle = 0; breatheGuide = 0;
+  document.getElementById('gameModalTitle').textContent = t('breathingTitle');
+  document.getElementById('gameModalBody').innerHTML = `
+    <div class="breathe-stage">
+      <div class="breathe-ring" id="breatheRing"><div class="breathe-guide">\u{1F32C}\u{FE0F}</div></div>
+      <div class="breathe-label" id="breatheLabel">${t('startBreathe')}</div>
+      <div class="breathe-count" id="breatheCount"></div>
+      <button class="btn btn-primary" id="breatheAction" onclick="breatheToggle()">${t('startBreathe')}</button>
+    </div>`;
+  breatheRunning = false;
+  document.getElementById('gameModal').classList.add('active');
+}
+function breatheToggle() {
+  const btn = document.getElementById('breatheAction');
+  if (breatheRunning) { stopBreathingUI(); return; }
+  breatheRunning = true;
+  btn.textContent = t('stopBreathe');
+  btn.className = 'btn btn-danger';
+  breatheCycle = 0;
+  breatheStep();
+}
+function breatheStep() {
+  if (!breatheRunning) return;
+  const guide = BREATH_GUIDE[breatheGuide];
+  const ring = document.getElementById('breatheRing');
+  const label = document.getElementById('breatheLabel');
+  const count = document.getElementById('breatheCount');
+  const isIn = guide.label === 'In';
+  const isOut = guide.label === 'Out';
+  ring.classList.remove('guide-in','guide-out');
+  void ring.offsetWidth;
+  if (isIn) { ring.classList.add('guide-in'); label.textContent = t('breatheIn'); }
+  else if (isOut) { ring.classList.add('guide-out'); label.textContent = t('breatheOut'); }
+  else { label.textContent = t('breatheHold'); }
+  let c = guide.secs;
+  if (count) count.textContent = c;
+  breatheTimer = setInterval(() => {
+    c--;
+    if (count) count.textContent = c;
+    if (c <= 0) {
+      clearInterval(breatheTimer);
+      breatheGuide = (breatheGuide + 1) % BREATH_GUIDE.length;
+      if (breatheGuide === 0) breatheCycle++;
+      if (breatheCycle >= 4) { completeBreathing(); return; }
+      breatheStep();
+    }
+  }, 1000);
+}
+function completeBreathing() {
+  stopBreathingUI();
+  S.breathSessions++;
+  addPoints(20); saveState();
+  checkAchievements('a5');
+  const body = document.getElementById('gameModalBody');
+  const btn = document.getElementById('breatheAction');
+  if (body) body.innerHTML = `<div style="text-align:center;padding:20px"><div style="font-size:60px;margin-bottom:12px">\u{1F389}</div><p style="font-size:18px;font-weight:700">${t('breatheComplete')}</p><p style="color:var(--ink-soft);margin:8px 0 18px">+20 ${t('points')}</p><button class="btn btn-primary" onclick="closeGameModal()">${t('awesome')}</button></div>`;
+}
+function stopBreathingUI() {
+  clearInterval(breatheTimer);
+  breatheRunning = false;
+  const label = document.getElementById('breatheLabel');
+  if (label) { label.style.display = 'block'; label.textContent = t('startBreathe'); }
+  const btn = document.getElementById('breatheAction');
+  if (btn) { btn.textContent = t('startBreathe'); btn.className = 'btn btn-primary'; }
+  const ring = document.getElementById('breatheRing');
+  if (ring) ring.classList.remove('guide-in','guide-out');
+}
+
+/* ===== EMOJI LOG ===== */
+function logMood(n) {
+  if (!S.moodHistory) S.moodHistory = [];
+  const today = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  const found = S.moodHistory.find(m=>m.date===today);
+  if (found) { found.mood = n; } else { S.moodHistory.push({ date: today, mood: n }); }
+  addPoints(5); saveState();
+  renderDashboard();
+  showToast(t('moodThanks'));
+}
+
+/* ===== LOGIN ===== */
+function showLoginStep(step) {
+  document.getElementById('loginStepPick').style.display = step==='pick' ? '' : 'none';
+  document.getElementById('loginStepPIN').style.display = step==='PIN' ? '' : 'none';
+  document.getElementById('loginStepSignup').style.display = step==='signup' ? '' : 'none';
+}
+function refreshProfilePicker() {
+  const picker = document.getElementById('profilePicker');
+  const users = DEMO.users;
+  picker.innerHTML = users.map(u=>`
+    <div class="profile-card" onclick="selectGetUser('${u.id}')">
+      <div class="profile-avatar-lg">${u.avatar}</div>
+      <div class="profile-name">${u.name}</div>
+      <div class="profile-role">${u.role}</div>
+    </div>`).join('') + `
+    <div class="profile-card" onclick="showLoginStep('signup')">
+      <div class="profile-avatar-lg">\u2795</div>
+      <div class="profile-name">Create Profile</div>
+      <div class="profile-role">New User</div>
+    </div>`;
+}
+function selectGetUser(id) {
+  const u = DEMO.users.find(x=>x.id===id);
+  if (!u) return;
+  S.selectedUser = u;
+  if (u.id === 'cg1') S.selectPin = '1234';
+  const av = document.getElementById('loginPinAvatar');
+  if (av) av.textContent = u.avatar;
+  S.pinBuf = ''; updatePinDotsUI();
+  document.getElementById('loginStepPick').style.display='none';
+  document.getElementById('loginStepPIN').style.display='';
+  document.getElementById('loginStepSignup').style.display='none';
+}
+function enterApp() {
+  document.getElementById('landingPage').classList.remove('active');
+  document.getElementById('loginScreen').classList.remove('hidden');
+  showLoginStep('pick');
+  refreshProfilePicker();
+}
+function buildPinKeypads() {
+  const keys = ['1','2','3','4','5','6','7','8','9', '\u232B','0','\u2713'];
+  const pad = document.getElementById('pinKeypad');
+  pad.innerHTML = keys.map(k=>`<button onclick="pinPress('${k}')">${k}</button>`).join('');
+  const spad = document.getElementById('signupPinKeypad');
+  spad.innerHTML = keys.map(k=>`<button onclick="signupPinPress('${k}')">${k}</button>`).join('');
+  const ppad = document.getElementById('privacyPinKeypad');
+  ppad.innerHTML = keys.map(k=>`<button onclick="privacyPinPress('${k}')">${k}</button>`).join('');
+}
+function updatePinDotsUI() {
+  const dots = document.querySelectorAll('#pinDots .pin-dot');
+  dots.forEach((d,i)=>{ d.className='pin-dot' + (i<S.pinBuf.length?' filled':''); });
+}
+function updateSignupPinDots() {
+  const dots = document.querySelectorAll('#signupPinDots .pin-dot');
+  dots.forEach((d,i)=>{ d.className='pin-dot' + (i<S.signupPinBuf.length?' filled':''); });
+}
+function pinPress(k) {
+  if (k==='\u232B') { S.pinBuf = S.pinBuf.slice(0,-1); }
+  else if (k==='\u2713') { verifyPin(); return; }
+  else if (S.pinBuf.length < 4) { S.pinBuf += k; }
+  updatePinDotsUI();
+  if (S.pinBuf.length === 4) setTimeout(verifyPin, 120);
+}
+function verifyPin() {
+  const entered = S.pinBuf;
+  if (entered === '1234' || entered === PIN) {
+    S.loggedIn = true;
+    S.userName = S.selectedUser ? S.selectedUser.name : 'Ratna Devi';
+    S.role = S.selectedUser ? S.selectedUser.role : 'elder';
+    S.avatar = S.selectedUser ? S.selectedUser.avatar : (S.role==='elder'?'\u{1F9D3}':'\u{1F468}\u200D\u{2695}\u{FE0F}');
+    S.pinBuf = '';
+    document.getElementById('loginScreen').classList.add('hidden');
+    if ((S.selectedUser && S.selectedUser.id==='cg1') || S.role==='caregiver') S.role='caregiver';
+    initDemoContent();
+    enterMainApp();
+  } else {
+    showToast(t('wrongPin')||'Incorrect PIN', 'error');
+    S.pinBuf=''; updatePinDotsUI();
+  }
+}
+function initDemoContent() {
+  if (!S.notifications || !S.notifications.length) S.notifications = DEMO.notifications.slice();
+  if (!S.messages || !S.messages.length) S.messages = DEMO.messages.slice();
+  if (!S.achievements || !S.achievements.length) S.achievements = DEMO.achievements.slice();
+  if (!S.medications || !S.medications.length) S.medications = DEMO.medications.map(m=>({...m}));
+  if (!S.reminders || !S.reminders.length) S.reminders = DEMO.reminders.slice();
+  if (!S.routineItems || !S.routineItems.length) S.routineItems = DEMO.routine.slice();
+  if (!S.tasks || !S.tasks.length) S.tasks = DEMO.tasks.map(m=>({...m}));
+  if (!S.moodHistory || !S.moodHistory.length) S.moodHistory = DEMO.moodHistory || [];
+  saveState();
+}
+function enterMainApp() {
+  document.getElementById('appShell').style.display = 'flex';
+  document.getElementById('bottomNav').style.display = S.role==='caregiver' ? 'none' : '';
+  updateSidebar();
+  showView(S.role==='caregiver' ? 'caregiver' : 'dashboard');
+  applyTranslations();
+  if (!S.onboarding) { S.onboarding = true; setTimeout(()=>startOnboarding(), 350); }
+  document.getElementById('buddyBtn').style.display = S.role==='elder' ? '' : 'none';
+  saveState();
+}
+function selectSignupRole(el, role) {
+  S.signupRole = role;
+  document.querySelectorAll('#loginStepSignup .role-pick-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+let signupRole = 'elder', signupAvatar = '\u{1F9D3}';
+S.signupPinBuf = '';
+function buildAvatars() {
+  const av = ['\u{1F9D3}','\u{1F468}','\u{1F469}','\u{1F474}','\u{1F475}','\u{1F933}','\u{1F483}','\u{1F64C}'];
+  const cont = document.getElementById('signupAvatars');
+  cont.innerHTML = av.map((a,i)=>`<button class="avatar-pick-btn ${i===0?'selected':''}" onclick="pickSignupAvatar(${i},'${a}')">${a}</button>`).join('');
+}
+function pickSignupAvatar(i, a) {
+  signupAvatar = a;
+  document.querySelectorAll('#signupAvatars .avatar-pick-btn').forEach((b,j)=>{ b.classList.toggle('selected', j===i); });
+}
+function signupPinPress(k) {
+  if (k==='\u232B') S.signupPinBuf = S.signupPinBuf.slice(0,-1);
+  else if (k==='\u2713') { /* ignore */ }
+  else if (S.signupPinBuf.length < 4) S.signupPinBuf += k;
+  updateSignupPinDots();
+}
+function completeSignup() {
+  const name = (document.getElementById('signupName')||{}).value || 'New User';
+  S.userName = name; S.role = signupRole || 'elder'; S.avatar = signupAvatar;
+  const p = S.signupPinBuf || '1234';
+  S.loggedIn = true;
+  DEMO.users.unshift({ id:'new'+Date.now(), name:name, role:S.role, avatar:signupAvatar });
+  document.getElementById('loginScreen').classList.add('hidden');
+  initDemoContent();
+  enterMainApp();
+}
+function logout() {
+  S.loggedIn = false;
+  document.getElementById('appShell').style.display='none';
+  document.getElementById('bottomNav').style.display='none';
+  document.getElementById('loginScreen').classList.remove('hidden');
+  showLoginStep('pick'); refreshProfilePicker();
+}
+
+/* ===== VOICE (basic) ===== */
+function startVoice() {
+  const ov = document.getElementById('voiceOverlay');
+  ov.classList.add('active');
+  S.voiceListening = true;
+  document.getElementById('voiceBtn').classList.add('listening');
+  document.getElementById('voiceTranscript').textContent = '...';
+  try {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SR) {
+      const recog = new SR();
+      recog.lang = S.lang==='hindi'?'hi-IN': S.lang==='bengali'?'bn-IN':'en-IN';
+      recog.onresult = (e)=>{ const txt = e.results[0][0].transcript.toLowerCase(); document.getElementById('voiceTranscript').textContent = txt; processVoiceCommand(txt); };
+      recog.onend = ()=>{ S.voiceListening=false; document.getElementById('voiceBtn').classList.remove('listening'); };
+      recog.start();
+      S._recog = recog;
+    } else { setTimeout(()=>{ showToast(t('voiceUnsupported')||'Voice not supported in this browser'); processVoiceCommand('games'); }, 1400); }
+  } catch(e) { showToast(t('voiceError')||'Voice unavailable'); setTimeout(()=>processVoiceCommand('games'), 500); }
+}
+function stopVoice() {
+  document.getElementById('voiceOverlay').classList.remove('active');
+  S.voiceListening = false;
+  document.getElementById('voiceBtn').classList.remove('listening');
+  if (S._recog) { try{S._recog.stop();}catch(e){} }
+}
+function processVoiceCommand(txt) {
+  stopVoice();
+  const s = txt;
+  if (s.includes('game') || s.includes('play') || s.includes('\u0916\u0947\u0932')) showView('games');
+  else if (s.includes('breath') || s.includes('breathe') || s.includes('\u0938\u093E\u0901\u0938')) startBreathing();
+  else if (s.includes('task') || s.includes('\u0915\u093E\u0930\u094D\u092F')) showView('tasks');
+  else if (s.includes('family') || s.includes('\u092A\u0930\u093F\u0935\u093E\u0930')) showView('family');
+  else if (s.includes('routine') || s.includes('day')) showView('routine');
+  else if (s.includes('how') || s.includes('mood') || s.includes('\u0915\u0948\u0938\u0947')) renderDashboard();
+  else showToast(t('voiceUnknown')||'Try saying "Play games"');
+}
+function startLoginVoice() {
+  startVoice();
+}
+
+
+/* ===== HELPERS FOR GAMES ===== */
+function shuffle(a) { for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+/* ===== MEMORY MATCH ===== */
+let memState = null;
+function openGame(key) {
+  if (key === 'memory') { openMemory(); }
+  else if (key === 'sequence') { openSequence(); }
+  else if (key === 'pattern') { openPattern(); }
+  else if (key === 'naming') { openNaming(); }
+  else if (key === 'objectRecall') { openObjectRecall(); }
+  else if (key === 'attention') { openAttention(); }
+  else if (key === 'dailyRecall') { openDailyRecall(); }
+}
+function openMemory() {
+  document.getElementById('gameModalBody').innerHTML = '';
+  document.getElementById('gameModalTitle').textContent = GAME_META[0].name;
+  showToast(t('gameLoading')||'Get ready...');
+  startMemory();
+}
+function startMemory() {
+  const pairs = Math.min(6, (S.difficulty.memory||4));
+  const emojis = ['\u{1F600}','\u{1F601}','\u{1F923}','\u{1F970}','\u{1F60D}','\u{1F929}','\u{1F61C}','\u{1F60A}','\u{1F643}','\u{1F61D}','\u{1F60E}','\u{1F602}','\u{1F607}','\u{1F60F}','\u{1F600}','\u{1F979}'];
+  const picked = shuffle(emojis.slice()).slice(0,pairs);
+  const deck = shuffle(picked.concat(picked));
+  memState = { deck, moves:0, flipped:[], matched:0, total:pairs };
+  document.getElementById('gameModalTitle').textContent = GAME_META[0].name;
+  document.getElementById('gameModalBody').innerHTML = `
+    <div class="game-status" id="memStatus">${pairs} ${t('pairs')||'pairs'} - 0 ${t('moves')||'moves'}</div>
+    <div class="game-board" style="grid-template-columns:repeat(${pairs<=4?4:5},1fr)">${deck.map((_,i)=>`<button class="game-tile" id="memT${i}" onclick="memFlip(${i})">?</button>`).join('')}</div>
+    <div style="text-align:center;margin-top:8px"><span id="memScore" style="font-weight:700;color:var(--accent-dark)">+0</span></div>
+  `;
+  S.currentGame = 'memory';
+}
+function memFlip(i) {
+  if (!memState) return;
+  const t = memState.deck[i];
+  const el = document.getElementById('memT'+i);
+  if (el.classList.contains('flipped') || el.classList.contains('matched')) return;
+  if (memState.flipped.length >= 2) return;
+  el.classList.add('flipped'); el.textContent = t;
+  memState.flipped.push(i);
+  if (memState.flipped.length === 2) {
+    memState.moves++;
+    const [a,b] = memState.flipped;
+    const status = document.getElementById('memStatus');
+    if (status) status.textContent = `${memState.total} ${t('pairs')||'pairs'} - ${memState.moves} ${t('moves')||'moves'}`;
+    if (memState.deck[a] === memState.deck[b]) {
+      setTimeout(()=>{
+        document.getElementById('memT'+a).classList.add('matched');
+        document.getElementById('memT'+b).classList.add('matched');
+        memState.matched++;
+        memState.flipped = [];
+        if (memState.matched === memState.total) { memoryWin(); }
+      }, 350);
+    } else {
+      setTimeout(()=>{
+        const ea = document.getElementById('memT'+a), eb = document.getElementById('memT'+b);
+        if (ea) { ea.classList.remove('flipped'); ea.textContent='?'; }
+        if (eb) { eb.classList.remove('flipped'); eb.textContent='?'; }
+        memState.flipped = [];
+      }, 700);
+    }
+  }
+}
+function memoryWin() {
+  let pts = 10 + Math.max(0,(memState.total*4 - memState.moves)*2);
+  addPoints(pts);
+  S.gamesPlayed++; S.gamesWon++; S.streak++; saveState();
+  const body = document.getElementById('gameModalBody');
+  const scoreEl = document.getElementById('memScore');
+  if (scoreEl) scoreEl.textContent = '+'+pts;
+  checkAchievements('a1');
+  setTimeout(()=>{
+    body.innerHTML = `<div style="text-align:center;padding:20px"><div style="font-size:60px;margin-bottom:12px">\u{1F389}</div><p style="font-size:20px;font-weight:700">${t('matchAll')}</p><p style="color:var(--ink-soft);margin:8px 0 18px">+${pts} ${t('points')}</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn btn-primary" onclick="startMemory()">${t('playAgain')}</button><button class="btn btn-ghost" onclick="closeGameModal()">${t('awesome')}</button></div></div>`;
+  }, 700);
+}
+
+/* ===== SEQUENCE ===== */
+let seqState = null;
+function openSequence() {
+  const colors = [ {v:'\u{1F7E5}',c:'#C24545'}, {v:'\u{1F7E9}',c:'#2E6E62'}, {v:'\u{1F7E8}',c:'#D9A441'}, {v:'\u{1F7E6}',c:'#4A6FA5'} ];
+  const len = S.difficulty.sequence||3;
+  seqState = { slot:0, arr:[], userSeq:[], colors, len, running:false };
+  document.getElementById('gameModalTitle').textContent = GAME_META[1].name;
+  nextSeqRound();
+}
+function nextSeqRound() {
+  if (!seqState) return;
+  if (seqState.arr.length >= seqState.len) { sequenceWin(); return; }
+  const r = Math.floor(Math.random()*4);
+  seqState.arr.push(r);
+  seqState.userSeq = [];
+  seqState.running = true;
+  document.getElementById('gameModalBody').innerHTML = `
+    <div class="seq-count">${t('round')||'Round'} ${seqState.arr.length}/${seqState.len}</div>
+    <div class="seq-progress">${seqState.arr.map(()=>'<div class="seq-dot filled"></div>').map((x,i)=>i<seqState.arr.length?x:'').join('')}${Array(Math.max(0,seqState.len-seqState.arr.length)).fill('<div class="seq-dot"></div>').join('')}</div>
+    <div class="sequence-pad">${seqState.colors.map((c,i)=>`<button class="seq-btn seq-${i+1}" id="seqB${i}" onclick="seqPress(${i})" disabled></button>`).join('')}</div>
+    <div class="game-status" id="seqStatus"></div>
+  `;
+  setTimeout(()=>playSeqSequence(), 500);
+}
+function playSeqSequence() {
+  if (!seqState) return;
+  let i = 0;
+  seqState.running = true;
+  const status = document.getElementById('seqStatus');
+  if (status) status.textContent = t('watch')||'Watch and remember...';
+  const btns = document.querySelectorAll('.seq-btn');
+  btns.forEach(b=>b.disabled = true);
+  const play = () => {
+    if (i >= seqState.arr.length) {
+      btns.forEach(b=>b.disabled = false);
+      if (status) status.textContent = t('yourTurn')||'Your turn!';
+      seqState.running = false;
+      return;
+    }
+    if (document.getElementById('seqB'+seqState.arr[i])) {
+      document.getElementById('seqB'+seqState.arr[i]).classList.add('lit');
+      setTimeout(()=>{ document.getElementById('seqB'+seqState.arr[i]).classList.remove('lit'); i++; setTimeout(play, 420); }, 650);
+    }
+  };
+  setTimeout(play, 350);
+}
+function seqPress(i) {
+  if (!seqState || !seqState.userSeq || seqState.running) return;
+  seqState.userSeq.push(i);
+  const el = document.getElementById('seqB'+i);
+  if (el) { el.classList.add('lit'); setTimeout(()=>el.classList.remove('lit'), 220); }
+  const idx = seqState.userSeq.length - 1;
+  if (i !== seqState.arr[idx]) {
+    const status = document.getElementById('seqStatus');
+    if (status) status.textContent = t('seqWrong')||'Oops, try again!';
+    seqState.userSeq = [];
+    return;
+  }
+  if (seqState.userSeq.length === seqState.arr.length) {
+    setTimeout(nextSeqRound, 450);
+  }
+}
+function sequenceWin() {
+  addPoints(20 + seqState.len*3);
+  S.gamesPlayed++; S.gamesWon++; S.streak++; saveState();
+  checkAchievements('a1');
+  showToast(t('seqWin')||'Great memory!');
+  setTimeout(()=>{
+    document.getElementById('gameModalBody').innerHTML = `<div style="text-align:center;padding:20px"><div style="font-size:60px;margin-bottom:12px">\u{1F389}</div><p style="font-size:20px;font-weight:700">${t('seqWin')}</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn btn-primary" onclick="openSequence()">${t('playAgain')}</button><button class="btn btn-ghost" onclick="closeGameModal()">${t('awesome')}</button></div></div>`;
+  }, 300);
+}
+
+/* ===== PATTERN ===== */
+let patState = null;
+function openPattern() {
+  patState = { demo:[], done:false, level: S.difficulty.pattern||3 };
+  document.getElementById('gameModalTitle').textContent = GAME_META[2].name;
+  const easy = patState.level <= 3;
+  const pool = easy ? PATTERNS_EASY : (patState.level<=4?PATTERNS_MED:PATTERNS_HARD);
+  patState.target = pool[Math.floor(Math.random()*pool.length)].flat();
+  patState.demo = patState.target.slice();
+  patState.userSet = new Set();
+  renderPattern();
+}
+function renderPattern() {
+  const cells = Array.from({length:9},(_,i)=>i);
+  document.getElementById('gameModalBody').innerHTML = `
+    <div class="game-status" id="patStatus">${t('watchPattern')||'Watch the pattern'}</div>
+    <div class="pattern-grid">${cells.map(i=>`<div class="pattern-cell" id="patC${i}"></div>`).join('')}</div>
+  `;
+  setTimeout(()=>flashPattern(), 500);
+}
+function flashPattern() {
+  const status = document.getElementById('patStatus');
+  if (status) status.textContent = t('watch')||'Watch and remember...';
+  let idx = 0;
+  const cells = document.querySelectorAll('.pattern-cell');
+  const int = setInterval(()=>{
+    if (idx < patState.demo.length) {
+      cells.forEach(c=>c.classList.remove('on'));
+      const cell = document.getElementById('patC'+patState.demo[idx]);
+      if (cell) cell.classList.add('on');
+      idx++;
+    } else {
+      clearInterval(int);
+      cells.forEach(c=>c.classList.remove('on'));
+      patState.done = true;
+      if (status) status.textContent = t('recreate')||'Recreate it! Tap the grid';
+      cells.forEach((c,i)=>c.style.cursor='pointer');
+      cells.forEach(c=>c.addEventListener('click', patTap));
+    }
+  }, 500);
+}
+let patTapBound = [];
+function patTap(e) {
+  if (!patState || !patState.done) return;
+  const id = parseInt(e.currentTarget.id.replace('patC',''));
+  if (patState.userSet.has(id)) return;
+  patState.userSet.add(id);
+  e.currentTarget.classList.add('on');
+  if (patState.userSet.size === patState.demo.length) {
+    const correct = patState.demo.every(x=>patState.userSet.has(x)) && patState.userSet.size === patState.demo.length;
+    patState.done = false;
+    if (correct) { patternWin(); } else { const status=document.getElementById('patStatus'); if(status)status.textContent=t('seqWrong')||'Not quite, try again!'; patState.userSet=new Set(); setTimeout(()=>{cellsReset();patState.done=true;},900); }
+  }
+}
+function cellsReset(){ if(patState)document.querySelectorAll('.pattern-cell').forEach(c=>c.classList.remove('on')); }
+
+function patternWin() {
+  addPoints(15 + patState.demo.length*4);
+  S.gamesPlayed++; S.gamesWon++; S.streak++; saveState();
+  checkAchievements('a1');
+  const body = document.getElementById('gameModalBody');
+  setTimeout(()=>{
+    body.innerHTML = `<div style="text-align:center;padding:20px"><div style="font-size:60px;margin-bottom:12px">\u{1F4A1}</div><p style="font-size:20px;font-weight:700">${t('matchAll')}</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn btn-primary" onclick="openPattern()">${t('playAgain')}</button><button class="btn btn-ghost" onclick="closeGameModal()">${t('awesome')}</button></div></div>`;
+  }, 400);
+}
+
+/* ===== NAME RECALL ===== */
+function openNaming() {
+  const correct = NAME_DATA[Math.floor(Math.random()*NAME_DATA.length)];
+  const others = shuffle(NAME_DATA.filter(n=>n!==correct)).slice(0,3);
+  const options = shuffle([correct, ...others]);
+  document.getElementById('gameModalTitle').textContent = GAME_META[3].name;
+  document.getElementById('gameModalBody').innerHTML = `
+    <div style="text-align:center;padding:10px 0">
+      <div style="font-size:84px;margin-bottom:12px;display:inline-block;background:var(--primary-light);border-radius:50%;padding:20px">${correct.emoji}</div>
+      <p style="font-weight:700;font-size:19px;margin-bottom:16px">${t('whoIs')||'Who is this?'}</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:380px;margin:0 auto">
+        ${options.map(o=>`<button class="game-option-btn" onclick="namingAnswer(this,'${correct.name}','${o.name}')">${o.name}</button>`).join('')}
+      </div>
+    </div>`;
+}
+function namingAnswer(el, correct, chosen) {
+  el.disabled = true;
+  if (chosen === correct) {
+    el.classList.add('correct');
+    addPoints(12); S.gamesPlayed++; S.gamesWon++; S.streak++; saveState(); checkAchievements('a1');
+    showToast(t('correct')+ '!' +' +12 '+t('points'));
+    setTimeout(()=>{ document.querySelectorAll('#gameModalBody .game-option-btn').forEach(b=>b.disabled=true); document.getElementById('gameModalBody').innerHTML = `<div style="text-align:center;padding:20px"><div style="font-size:60px;margin-bottom:12px">\u{1F389}</div><p style="font-size:20px;font-weight:700">${t('correct')}!</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn btn-primary" onclick="openNaming()">${t('playAgain')}</button><button class="btn btn-ghost" onclick="closeGameModal()">${t('awesome')}</button></div></div>`; }, 400);
+  } else {
+    el.classList.add('wrong');
+    showToast(t('wrong')+' '+t('tryAgain')||'Not quite, try again!', 'error');
+  }
+}
+
+/* ===== OBJECT RECALL ===== */
+let objState = null;
+function openObjectRecall() {
+  const objs = shuffle(['\u{1F4D6}','\u{1F34E}','\u{2600}\u{FE0F}','\u{1F464}','\u{2764}\u{FE0F}','\u{1F381}','\u{231B}','\u{1F4E6}','\u{1F37D}\u{FE0F}','\u{1F3B5}','\u{1F4A1}','\u{1F31F}']);
+  const count = Math.min(6, (S.difficulty.objectRecall||3));
+  const target = shuffle(objs.slice()).slice(0,count);
+  objState = { target, count, revealed:false };
+  document.getElementById('gameModalTitle').textContent = GAME_META[4].name;
+  document.getElementById('gameModalBody').innerHTML = `
+    <div class="game-status" id="objStatus">${t('objectsToRecall')}</div>
+    <div class="obj-recall-grid">${target.map((o,i)=>`<div class="obj-cell" id="objC${i}">${o}</div>`).join('')}</div>
+    <div style="text-align:center"><button class="btn btn-primary" id="objBtn" onclick="objSolver()">${t('hideNow')||'Hide Now'}</button></div>
+  `;
+  setTimeout(()=>{ showToast(t('memorize')||'Memorize the objects...'); }, 200);
+}
+function objSolver() {
+  const hiddenCount = (S.difficulty.objectRecall||3);
+  const showCells = document.querySelectorAll('.obj-cell');
+  showCells.forEach(c=>c.classList.add('hidden'));
+  let idx=0;
+  const int = setInterval(()=>{
+    if (idx<objState.count){ document.getElementById('objC'+idx).classList.remove('hidden'); idx++; }
+    else { clearInterval(int); objRevealQuestion(); }
+  }, 250);
+  document.getElementById('objBtn').style.display='none';
+}
+function objRevealQuestion() {
+  const one = objState.target[Math.floor(Math.random()*objState.target.length)];
+  const others = shuffle(['\u{1F3E2}','\u{1F680}','\u{1F4B8}','\u{1F416}','\u{1F6F0}\u{FE0F}','\u{1F4FC}','\u{1F436}','\u{1F49B}','\u{26BD}','\u{1F41F}','\u{1F4B0}','\u{1F34D}']);
+  const wrong = shuffle(others.filter(o=>!objState.target.includes(o))).slice(0,3);
+  const options = shuffle([one,...wrong]);
+  const status = document.getElementById('objStatus');
+  if (status) status.textContent = t('whatWasThere');
+  const body = document.getElementById('gameModalBody');
+  const grid = body.querySelector('.obj-recall-grid');
+  if (grid) grid.style.display='none';
+  body.innerHTML = body.innerHTML + `
+    <div style="text-align:center;padding:20px 0">
+      <p style="font-weight:700;font-size:18px;margin:10px 0 16px">${t('whatWasThere')}?</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:380px;margin:0 auto">
+        ${options.map(o=>`<button class="game-option-btn" style="font-size:38px;min-height:80px" onclick="objAnswer(this,'${one}','${o}')">${o}</button>`).join('')}
+      </div>
+    </div>`;
+}
+function objAnswer(el, correct, chosen) {
+  el.disabled = true;
+  const btns = document.querySelectorAll('#gameModalBody .game-option-btn');
+  if (chosen === correct) {
+    el.classList.add('correct'); btns.forEach(b=>b.disabled=true);
+    addPoints(15); S.gamesPlayed++; S.gamesWon++; S.streak++; saveState(); checkAchievements('a1');
+    showToast(t('correct')+'! +15 '+t('points'));
+    setTimeout(()=>{ document.getElementById('gameModalBody').innerHTML = `<div style="text-align:center;padding:20px"><div style="font-size:60px;margin-bottom:12px">\u{1F389}</div><p style="font-size:20px;font-weight:700">${t('correct')}!</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn btn-primary" onclick="openObjectRecall()">${t('playAgain')}</button><button class="btn btn-ghost" onclick="closeGameModal()">${t('awesome')}</button></div></div>`; }, 400);
+  } else {
+    el.classList.add('wrong');
+    showToast(t('wrong')+' '+t('tryAgain')||'Not quite', 'error');
+    const st = document.getElementById('objStatus'); if (st) st.textContent = t('wrong');
+  }
+}
+
+/* ===== ATTENTION ===== */
+let attState = null;
+function openAttention() {
+  const size = S.difficulty.attention||4;
+  const cellCount = size*size;
+  const emojis = ['\u{1F34E}','\u{1F34C}','\u{1F33F}','\u{1F31F}','\u{2764}\u{FE0F}','\u{1F34A}','\u{1F41F}','\u{1F31E}'];
+  const base = emojis[Math.floor(Math.random()*emojis.length)];
+  let other = emojis[Math.floor(Math.random()*emojis.length)];
+  if (other === base) other = emojis[(emojis.indexOf(base)+1)%emojis.length];
+  const targetIdx = Math.floor(Math.random()*cellCount);
+  attState = { base, other, targetIdx, count:0, answered:false };
+  document.getElementById('gameModalTitle').textContent = GAME_META[5].name;
+  const cells = Array.from({length:cellCount},(_,i)=>i);
+  document.getElementById('gameModalBody').innerHTML = `
+    <div class="game-status">${t('attentionPrompt')}</div>
+    <div class="attention-grid" style="grid-template-columns:repeat(${size},1fr)">${cells.map(i=>`<button class="attention-cell" id="attC${i}" onclick="attTap(this,${i})">${i===targetIdx?other:base}</button>`).join('')}</div>
+  `;
+}
+function attTap(el, i) {
+  if (!attState || attState.answered) return;
+  const correct = i === attState.targetIdx;
+  if (correct) {
+    el.classList.add('correct'); attState.answered = true;
+    addPoints(12); S.gamesPlayed++; S.gamesWon++; S.streak++; saveState(); checkAchievements('a1');
+    showToast(t('correct')+'! +12 '+t('points'));
+    setTimeout(()=>{ document.getElementById('gameModalBody').innerHTML = `<div style="text-align:center;padding:20px"><div style="font-size:60px;margin-bottom:12px">\u{1F389}</div><p style="font-size:20px;font-weight:700">${t('correct')}!</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn btn-primary" onclick="openAttention()">${t('playAgain')}</button><button class="btn btn-ghost" onclick="closeGameModal()">${t('awesome')}</button></div></div>`; }, 400);
+    checkAchievements('a8');
+  } else {
+    el.classList.add('wrong');
+    setTimeout(()=>el.classList.remove('wrong'), 400);
+    showToast(t('wrong')+' '+t('tryAgain')||'Not quite', 'error');
+  }
+}
+
+/* ===== DAILY RECALL ===== */
+function openDailyRecall() {
+  const item = DAILY_RECALL_QUESTIONS[Math.floor(Math.random()*DAILY_RECALL_QUESTIONS.length)];
+  const shuffledOpts = shuffle(item.opts.map((o,i)=>({o,i})));
+  document.getElementById('gameModalTitle').textContent = GAME_META[6].name;
+  document.getElementById('gameModalBody').innerHTML = `
+    <div class="feel-board">
+      <div class="feel-prompt">\u{1F4AD}</div>
+      <p style="font-size:20px;font-weight:700;margin-bottom:18px">${item.q}</p>
+      <div class="feel-options">${shuffledOpts.map(o=>`<button class="feel-option" onclick="dailyAnswer(this,${item.correct},${o.i})">${o.o}</button>`).join('')}</div>
+    </div>`;
+}
+function dailyAnswer(el, correctIdx, chosenIdx) {
+  const btns = document.querySelectorAll('#gameModalBody .feel-option');
+  btns.forEach(b=>b.disabled=true);
+  if (chosenIdx === correctIdx) {
+    el.classList.add('correct');
+    addPoints(15); S.gamesPlayed++; S.gamesWon++; S.streak++; saveState(); checkAchievements('a1');
+    showToast(t('recallCorrect'));
+    setTimeout(()=>{ document.getElementById('gameModalBody').innerHTML = `<div style="text-align:center;padding:20px"><div style="font-size:60px;margin-bottom:12px">\u{1F389}</div><p style="font-size:20px;font-weight:700">${t('recallCorrect')}</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn btn-primary" onclick="openDailyRecall()">${t('playAgain')}</button><button class="btn btn-ghost" onclick="closeGameModal()">${t('awesome')}</button></div></div>`; }, 400);
+  } else {
+    el.classList.add('wrong');
+    showToast(t('recallTryAgain'), 'error');
+    const score = 5; addPoints(score);
+  }
+}
+function closeGameModal() { document.getElementById('gameModal').classList.remove('active'); S.currentGame = null; }
+
+/* ===== BUDDY ===== */
+function renderBuddy() {
+  const bubble = document.getElementById('buddyBubble');
+  const tip = TIP_DATA[Math.floor(Math.random()*TIP_DATA.length)];
+  bubble.innerHTML = `<strong>${t('buddyTitle')}</strong><p style="margin-top:8px">${tip.emoji} ${t('buddyTip')||tip.tip}</p>`;
+}
+function toggleBuddy() {
+  const b = document.getElementById('buddyBubble');
+  b.classList.toggle('show');
+  if (b.classList.contains('show')) renderBuddy();
+}
+
+/* ===== ONBOARDING ===== */
+const ONBOARD_STEPS = 4;
+function startOnboarding() {
+  S.onboardStep = 0;
+  document.getElementById('onboardProgress').innerHTML = Array.from({length:ONBOARD_STEPS},(_,i)=>`<div class="onboarding-dot ${i===0?'active':''}" id="obDot${i}"></div>`).join('');
+  buildOnboardLangs();
+  document.getElementById('onboardStep1').classList.add('active');
+  ['onboardStep2','onboardStep3','onboardStep4'].forEach(s=>document.getElementById(s).classList.remove('active'));
+  document.getElementById('onboardPrev').style.visibility='hidden';
+  document.getElementById('onboardNext').textContent = t('onboardNext');
+  document.getElementById('onboarding').classList.add('active');
+}
+function buildOnboardLangs() {
+  const cont = document.getElementById('onboardLangOptions');
+  cont.innerHTML = LANGUAGES.map((l,i)=>
+    `<div class="onboarding-option ${l.code==='english'?'selected':''}" onclick="pickOnboardLang(${i})"><div class="opt-icon">${l.flag}</div><div class="opt-label">${l.label}</div></div>`).join('');
+}
+let onboardLangIdx = 0;
+function pickOnboardLang(i) {
+  onboardLangIdx = i;
+  document.querySelectorAll('#onboardLangOptions .onboarding-option').forEach((o,j)=>o.classList.toggle('selected',j===i));
+  S.onboardLang = LANGUAGES[i].code;
+}
+function selectOnboardRole(r) {
+  S.onboardRole = r;
+  document.querySelectorAll('#onboardRoleOptions .role-pick-card').forEach(c=>c.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+}
+function selectOnboardText(size) {
+  S.onboardText = size;
+  document.querySelectorAll('#onboardTextOptions .text-size-opt').forEach(o=>o.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+}
+function onboardNext() {
+  S.onboardStep++;
+  if (S.onboardStep >= ONBOARD_STEPS) { finishOnboarding(); return; }
+  showOnboardStep(S.onboardStep);
+}
+function onboardPrev() {
+  if (S.onboardStep <= 0) return;
+  S.onboardStep--;
+  showOnboardStep(S.onboardStep);
+}
+function showOnboardStep(i) {
+  for (let n=1;n<=ONBOARD_STEPS;n++) document.getElementById('onboardStep'+n).classList.toggle('active', n===i+1);
+  document.querySelectorAll('.onboarding-dot').forEach((d,j)=>d.className = 'onboarding-dot' + (j<i?' done':'') + (j===i?' active':''));
+  document.getElementById('onboardPrev').style.visibility = i>0 ? 'visible' : 'hidden';
+  document.getElementById('onboardNext').textContent = i===ONBOARD_STEPS-1 ? (t('finish')||'Finish') : t('onboardNext');
+}
+function finishOnboarding() {
+  document.getElementById('onboarding').classList.remove('active');
+  switchLang(S.onboardLang || 'english');
+  setTextSize(S.onboardText || 'normal');
+  S.onboarding = true; saveState();
+  showToast(t('welcomeOnboard')||'Welcome!');
+}
+
+/* ===== ACCESSIBILITY ===== */
+function openAccessibility() {
+  document.getElementById('accessPanel').classList.add('open');
+  document.getElementById('accessOverlay').classList.add('open');
+}
+function closeAccessibility() {
+  document.getElementById('accessPanel').classList.remove('open');
+  document.getElementById('accessOverlay').classList.remove('open');
+}
+function setTextSize(size) {
+  S.accessibility.textSize = size;
+  const sizes = { normal:'17px', large:'19px', xlarge:'21px' };
+  document.body.style.fontSize = sizes[size] || '17px';
+  ['ts-normal','ts-large','ts-xlarge'].forEach(id=>document.getElementById(id).classList.remove('active'));
+  document.getElementById('ts-'+size).classList.add('active');
+  if (size === 'xlarge') document.body.classList.add('large-buttons'); else document.body.classList.remove('large-buttons');
+  saveState();
+}
+function setContrast(mode) {
+  S.accessibility.contrast = mode;
+  ['hc-normal','hc-high'].forEach(id=>document.getElementById(id).classList.remove('active'));
+  document.getElementById('hc-'+mode).classList.add('active');
+  document.body.classList.toggle('high-contrast', mode==='high');
+  saveState();
+}
+function setMotion(mode) {
+  S.accessibility.motion = mode;
+  ['rm-normal','rm-reduce'].forEach(id=>document.getElementById(id).classList.remove('active'));
+  document.getElementById('rm-'+mode).classList.add('active');
+  document.body.classList.toggle('reduce-motion', mode==='reduce');
+  saveState();
+}
+function setLargeButtons(on) {
+  S.accessibility.largeButtons = on;
+  ['lb-off','lb-on'].forEach(id=>document.getElementById(id).classList.remove('active'));
+  document.getElementById(on?'lb-on':'lb-off').classList.add('active');
+  document.body.classList.toggle('large-buttons', on);
+  saveState();
+}
+function setSimplify(on) {
+  S.accessibility.simplify = on;
+  ['sd-off','sd-on'].forEach(id=>document.getElementById(id).classList.remove('active'));
+  document.getElementById(on?'sd-on':'sd-off').classList.add('active');
+  document.body.classList.toggle('simplify-decorative', on);
+  saveState();
+}
+
+/* ===== EMERGENCY / DEMO ===== */
+function triggerEmergency() {
+  const contact = `tel:+91${'-'}12345 67890`;
+  if (confirm(t('emergencyCallConfirm')||'Call emergency contact?')) {
+    window.open('tel:', '_self');
+    showToast(t('calling')||'Calling emergency contact...');
+  }
+}
+function startDemoMode() {
+  S.demoMode = true;
+  document.getElementById('demoBadge').style.display = 'block';
+  const fresh = freshDemoState();
+  S = Object.assign(S, fresh);
+  saveState(); refreshViews();
+  showToast(t('demoActive')||'Demo mode active');
+  setTimeout(()=>document.getElementById('demoBadge').style.display='none', 8000);
+}
+
+/* ===== INIT ===== */
+function init() {
+  loadState();
+  switchLang(S.lang || 'english');
+  setTextSize(S.accessibility.textSize || 'xlarge');
+  setContrast(S.accessibility.contrast || 'normal');
+  setMotion(S.accessibility.motion || 'normal');
+  setLargeButtons(!!S.accessibility.largeButtons);
+  setSimplify(!!S.accessibility.simplify);
+  buildPinKeypads();
+  buildAvatars();
+  // ensure nav data-view attrs
+  document.querySelectorAll('.nav-item').forEach(n=>{
+    const txt = n.querySelector('span:last-child');
+    const map = {'Dashboard':'dashboard','Games':'games','Wellness':'wellness','Tasks':'tasks','Daily Routine':'routine','Family Circle':'family','Play Together':'multiplayer','Notifications':'notifications','Achievements':'achievements','Reminders':'reminders','Settings':'settings'};
+    if (txt) { const key = txt.getAttribute('data-i18n'); if (key) n.setAttribute('data-view', key.replace('nav','').toLowerCase()); }
+  });
+  document.querySelectorAll('.bottom-nav-item').forEach(n=>{
+    const span = n.querySelector('span:last-child');
+    if (span) { const key = span.getAttribute('data-i18n'); if (key) n.setAttribute('data-view', key.replace('nav','').toLowerCase()); }
+  });
+  applyTranslations();
+}
+document.addEventListener('DOMContentLoaded', () => {
+  init();
+  if (S.loggedIn) {
+    document.getElementById('landingPage').classList.remove('active');
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('appShell').style.display = 'flex';
+    document.getElementById('bottomNav').style.display = S.role==='caregiver'?'none':'';
+    updateSidebar();
+    showView(S.role==='caregiver'?'caregiver':'dashboard');
+  }
+});
+
+</script>
+</body>
+</html>
